@@ -6,7 +6,6 @@ const RightMenu = () => {
   return (
     <div>
       <AddExpense />
-      <ChatBot />
     </div>
   );
 };

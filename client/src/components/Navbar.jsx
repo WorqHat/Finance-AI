@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
@@ -40,18 +41,22 @@ const Navbar = () => {
           </ul>
         </div>
         <div class="hidden space-x-2 lg:block">
-          <button
-            type="button"
-            class="rounded-md bg-transparent px-3 py-2 text-sm font-semibold text-black hover:bg-black/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-          >
-            Sign In
-          </button>
-          <button
-            type="button"
-            class="rounded-md border border-black px-3 py-2 text-sm font-semibold text-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-          >
-            Log In
-          </button>
+          <Link to={"/signup"}>
+            <button
+              type="button"
+              class="rounded-md bg-transparent px-3 py-2 text-sm font-semibold text-black hover:bg-black/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+            >
+              Sign In
+            </button>
+          </Link>
+          <Link to={"/signin"}>
+            <button
+              type="button"
+              class="rounded-md border border-black px-3 py-2 text-sm font-semibold text-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+            >
+              Log In
+            </button>
+          </Link>
         </div>
         <div class="lg:hidden">
           <svg
