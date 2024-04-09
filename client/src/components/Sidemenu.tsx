@@ -2,7 +2,7 @@ import React from "react";
 
 const Sidemenu = () => {
   return (
-    <div className="p-4 w-60 border-r-2 min-h-screen">
+    <div className="p-4 border-r-2 min-h-screen">
       <ul className="px-4 gap-2 text-lg  py-4">
         <li className="p-3 hover:shadow-sm hover:bg-gray-200 rounded-xl cursor-pointer">
           Dashboard
