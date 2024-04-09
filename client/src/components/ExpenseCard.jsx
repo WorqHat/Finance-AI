@@ -2,39 +2,45 @@ import React from "react";
 
 const ExpenseCard = () => {
   return (
-    <div className="flex gap-16 shadow-md h-full px-8 py-4 justify-between ">
-      <div>
-        <h1 className="text-lg border-b-2 border-gray-700">Date</h1>
-        <div className="flex gap-8 py-4 ">
-          <h1>Category</h1>
-          <h1>description</h1>
-        </div>
-        <div className="flex gap-8 py-4">
-          <h1>Category</h1>
-          <h1>description</h1>
-        </div>
-      </div>
-
-      <div className="text-blue-600 ">
-        <h1 className="text-lg">Income</h1>
-        <div className="py-4">
-          <h1>Amount</h1>
-        </div>
-        <div className="py-4">
-          <h1>Amount</h1>
-        </div>
-      </div>
-
-      <div className="text-red-600">
-        <h1 className="text-lg">expense</h1>
-        <div className="py-4">
-          <h1>Amount</h1>
-        </div>
-        <div className="py-4">
-          <h1>Amount</h1>
-        </div>
-      </div>
-    </div>
+    <table className="border-collapse w-full shadow-md">
+      <thead>
+        <tr className="border-b-2  border-gray-400">
+          <th className="text-lg ">Date</th>
+          <th className="text-lg text-blue-600">Income</th>
+          <th className="text-lg text-red-600">Expense</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td className=" px-8 py-4">
+            <div className="flex gap-8 py-4">
+              <h1>Category</h1>
+              <h1>description</h1>
+            </div>
+            <div className="flex gap-8 py-4">
+              <h1>Category</h1>
+              <h1>description</h1>
+            </div>
+          </td>
+          <td className=" px-8 py-4">
+            <div className="py-4">
+              <h1>Amount</h1>
+            </div>
+            <div className="py-4">
+              <h1>Amount</h1>
+            </div>
+          </td>
+          <td className=" px-8 py-4">
+            <div className="py-4">
+              <h1>Amount</h1>
+            </div>
+            <div className="py-4">
+              <h1>Amount</h1>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   );
 };
 

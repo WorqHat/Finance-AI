@@ -1,7 +1,7 @@
 import React from "react";
 
 const ChatBot = () => {
-  return <div className="border">ChatBot</div>;
+  return <div>ChatBot</div>;
 };
 
 export default ChatBot;

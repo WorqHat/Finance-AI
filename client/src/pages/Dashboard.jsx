@@ -1,7 +1,7 @@
 import React from "react";
 import Sidemenu from "../components/Sidemenu";
 import ExpenseCard from "../components/ExpenseCard";
-import ChatBot from "../components/ChatBot";
+import RightMenu from "../components/RightMenu";
 
 const Dashboard = () => {
   return (
@@ -15,7 +15,7 @@ const Dashboard = () => {
         <ExpenseCard />
       </div>
       <div className="w-1/2">
-        <ChatBot />
+        <RightMenu />
       </div>
     </div>
   );
