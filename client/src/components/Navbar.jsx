@@ -6,8 +6,9 @@ const Navbar = () => {
     <div class=" bg-white mx-4 my-2">
       <div class="flex items-center justify-between px-4 py-4 sm:px-6  border-b-2">
         <div class="inline-flex items-center space-x-2 ">
-          <span> </span>
-          <span class="font-bold text-2xl">FinWise</span>
+          <Link to={"/"}>
+            <span class="font-bold text-2xl">FinWise</span>
+          </Link>
         </div>
         <div class="hidden grow items-start lg:flex">
           <ul class="ml-12 inline-flex space-x-8">
