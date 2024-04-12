@@ -1,9 +1,28 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const Navbar = () => {
   const isSignedIn = useSelector((store) => store.auth.status);
+  const dispatch = useDispatch();
+  const [error, setError] = useState("");
+
+  const handleLogoutClick = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/api/v1/users/logout"
+      );
+      console.log(response);
+
+      response.data.success && dispatch(logout());
+    } catch (error) {
+      setError("error while logging out", error.message);
+      setTimeout(() => {
+        setError("");
+      }, 2000);
+    }
+  };
 
   return (
     <div class=" bg-white mx-4 my-2">
@@ -44,11 +63,15 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
+
+        {error && <p className=" text-red-600 px-4 "> {error} </p>}
+
         {isSignedIn ? (
           <div>
             <button
               type="button"
               class="rounded-md border border-black px-3 py-2 text-sm font-semibold text-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+              onClick={handleLogoutClick}
             >
               Log out
             </button>

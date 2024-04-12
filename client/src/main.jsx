@@ -18,8 +18,8 @@ import AuthLayout from "./components/AuthLayout.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<App />}>
-      <Route path="" element={<LandingPage />} />
+    <Route path="" element={<App />}>
+      <Route path="/" element={<LandingPage />} />
       <Route
         path="signup"
         element={
@@ -36,10 +36,11 @@ const router = createBrowserRouter(
           </AuthLayout>
         }
       />
+
       <Route
-        path="dashboard"
+        path="/dashboard"
         element={
-          <AuthLayout>
+          <AuthLayout path={"/dashboard"}>
             <Dashboard />
           </AuthLayout>
         }

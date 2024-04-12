@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-const AuthLayout = ({ children, authentication = true }) => {
+const AuthLayout = ({ children, authentication = true, path = "" }) => {
   const authStatus = useSelector((store) => store.auth.status);
 
   const navigate = useNavigate();
@@ -12,7 +12,7 @@ const AuthLayout = ({ children, authentication = true }) => {
     if (authentication && authStatus !== authentication) {
       navigate("/signin");
     } else if (!authentication && authStatus !== authentication) {
-      navigate("/dashboard");
+      navigate(`${path}`);
     }
     setLoader(false);
   }, [authStatus, authentication, navigate]);
