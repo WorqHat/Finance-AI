@@ -1,7 +1,10 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
+  const isSignedIn = useSelector((store) => store.auth.status);
+
   return (
     <div class=" bg-white mx-4 my-2">
       <div class="flex items-center justify-between px-4 py-4 sm:px-6  border-b-2">
@@ -41,24 +44,36 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-        <div class="hidden space-x-2 lg:block">
-          <Link to={"/signup"}>
-            <button
-              type="button"
-              class="rounded-md bg-transparent px-3 py-2 text-sm font-semibold text-black hover:bg-black/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-            >
-              Sign In
-            </button>
-          </Link>
-          <Link to={"/signin"}>
+        {isSignedIn ? (
+          <div>
             <button
               type="button"
               class="rounded-md border border-black px-3 py-2 text-sm font-semibold text-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
             >
-              Log In
+              Log out
             </button>
-          </Link>
-        </div>
+          </div>
+        ) : (
+          <div class="hidden space-x-2 lg:block">
+            <Link to={"/signup"}>
+              <button
+                type="button"
+                class="rounded-md bg-transparent px-3 py-2 text-sm font-semibold text-black hover:bg-black/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+              >
+                Sign In
+              </button>
+            </Link>
+            <Link to={"/signin"}>
+              <button
+                type="button"
+                class="rounded-md border border-black px-3 py-2 text-sm font-semibold text-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+              >
+                Log In
+              </button>
+            </Link>
+          </div>
+        )}
+
         <div class="lg:hidden">
           <svg
             xmlns="http://www.w3.org/2000/svg"

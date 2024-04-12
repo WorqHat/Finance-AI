@@ -7,7 +7,7 @@ const RightMenu = () => {
   return (
     <div className="m-4">
       <AddExpense />
-      <Widget />
+      {/* <Widget /> */}
     </div>
   );
 };

@@ -14,14 +14,36 @@ import Signin from "./pages/Signin.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import { Provider } from "react-redux";
 import appStore from "./utils/appStore.jsx";
+import AuthLayout from "./components/AuthLayout.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route path="" element={<LandingPage />} />
-      <Route path="signup" element={<Signup />} />
-      <Route path="signin" element={<Signin />} />
-      <Route path="dashboard" element={<Dashboard />} />
+      <Route
+        path="signup"
+        element={
+          <AuthLayout authentication={false}>
+            <Signup />
+          </AuthLayout>
+        }
+      />
+      <Route
+        path="signin"
+        element={
+          <AuthLayout authentication={false}>
+            <Signin />
+          </AuthLayout>
+        }
+      />
+      <Route
+        path="dashboard"
+        element={
+          <AuthLayout>
+            <Dashboard />
+          </AuthLayout>
+        }
+      />
     </Route>
   )
 );

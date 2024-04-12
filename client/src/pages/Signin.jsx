@@ -1,29 +1,36 @@
 import React, { useState } from "react";
 import { ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { login } from "../utils/authSlice";
 
 const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleLoginClick = async () => {
     if ([email, password].some((field) => field?.trim() === "")) {
       setError("All fields are required");
+      return null;
     }
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/v1/users/register",
+        "http://localhost:8000/api/v1/users/login",
         {
           email,
           password,
         }
       );
 
+      response.data.success && dispatch(login(response.data));
       navigate("/dashboard");
     } catch (error) {
-      setError("invalid credentials", error?.message);
+      setError("invalid credentials", error.message);
     }
   };
 
