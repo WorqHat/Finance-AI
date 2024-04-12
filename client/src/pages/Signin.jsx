@@ -5,6 +5,27 @@ import { Link } from "react-router-dom";
 const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleLoginClick = async () => {
+    if ([email, password].some((field) => field?.trim() === "")) {
+      setError("All fields are required");
+    }
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/api/v1/users/register",
+        {
+          email,
+          password,
+        }
+      );
+
+      navigate("/dashboard");
+    } catch (error) {
+      setError("invalid credentials", error?.message);
+    }
+  };
 
   return (
     <section>
@@ -75,9 +96,13 @@ const Signin = () => {
                   </div>
                 </div>
                 <div>
+                  {error && <p className="text-sm text-red-500">{error}</p>}
+                </div>
+                <div>
                   <button
                     type="button"
                     className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
+                    onClick={handleLoginClick}
                   >
                     Get started
                     <svg

@@ -1,13 +1,36 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
-  console.log(fullName, email, password);
+  const handleSignupClick = async () => {
+    if ([fullName, email, password].some((field) => field?.trim() === "")) {
+      setError("All fields are required");
+    }
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/api/v1/users/register",
+        {
+          fullName,
+          email,
+          password,
+        }
+      );
+
+      navigate("/dashboard");
+    } catch (error) {
+      setError("user already exists", error?.message);
+    }
+  };
 
   return (
     <section>
@@ -89,9 +112,13 @@ const Signup = () => {
                   </div>
                 </div>
                 <div>
+                  {error && <p className="text-sm text-red-500">{error}</p>}
+                </div>
+                <div>
                   <button
                     type="button"
                     className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
+                    onClick={handleSignupClick}
                   >
                     Create Account
                     <svg

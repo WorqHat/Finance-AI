@@ -2,7 +2,7 @@ import React from "react";
 
 const AddExpense = () => {
   return (
-    <div className="border-l-2  p-4 m-4 shadow-md">
+    <div className="border-l-2 p-4 mb-4 shadow-md">
       <div className="flex justify-between">
         <button className="border border-red-500 bg-red-500 px-6 py-2 rounded-md  font-semibold">
           Expense

@@ -12,7 +12,7 @@ const Widget = () => {
       width: "350",
       height: "220",
       locale: "en",
-      dateRange: "1D",
+      dateRange: "1M",
       colorTheme: "light",
       isTransparent: false,
       autosize: false,

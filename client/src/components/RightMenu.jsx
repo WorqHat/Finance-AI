@@ -5,7 +5,7 @@ import Widget from "./Widget";
 
 const RightMenu = () => {
   return (
-    <div>
+    <div className="m-4">
       <AddExpense />
       <Widget />
     </div>
