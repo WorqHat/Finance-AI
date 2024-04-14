@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { login } from "../utils/authSlice";
+import Cookies from "js-cookie";
 
 const Signin = () => {
   const [email, setEmail] = useState("");
@@ -27,8 +28,18 @@ const Signin = () => {
         }
       );
 
-      response.data.success && dispatch(login(response.data));
-      navigate("/dashboard");
+      if (response.data.success) {
+        Cookies.set("accessToken", response.data.data.accessToken, {
+          expires: 1,
+        }); // Example: expires in 7 days
+        Cookies.set("refreshToken", response.data.data.refreshToken, {
+          expires: 10,
+        });
+
+        dispatch(login(response.data.data.user));
+
+        navigate("/dashboard");
+      }
     } catch (error) {
       setError("invalid credentials", error.message);
     }

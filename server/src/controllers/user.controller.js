@@ -104,7 +104,7 @@ const logoutUser = asyncHandler(async (req, res) => {
   await User.findByIdAndUpdate(
     req.user._id,
     {
-      $set: {
+      $unset: {
         refreshToken: undefined,
       },
     },
@@ -115,7 +115,7 @@ const logoutUser = asyncHandler(async (req, res) => {
 
   const options = {
     httpOnly: true,
-    secure: true,
+    secure: false, //TODO: set to true in production
   };
 
   return res
@@ -175,5 +175,7 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
     throw new ApiError(401, error?.message || "Invalid refresh token");
   }
 });
+
+//TODO: Implement the following functions
 
 export { registerUser, loginUser, logoutUser, refreshAccessToken };

@@ -17,6 +17,10 @@ const transactionSchema = new Schema({
     enum: ["income", "expense"],
     required: true,
   },
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
 });
 
 export const Transaction = mongoose.model("Transaction", transactionSchema);
