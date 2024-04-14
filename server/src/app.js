@@ -7,12 +7,13 @@ const app = express();
 //can also use app.use(cors()) to allow all origins
 //always specify the origin of your client app in production
 
-app.use(
-  cors({
-    origin: process.env.CORS_ORIGIN,
-    credentials: true,
-  })
-);
+const corsOptions = {
+  origin: process.env.CORS_ORIGIN, // Change this to your allowed origin
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+// app.options("*", cors(corsOptions)); // enable pre-flight
 app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 app.use(express.static("public"));

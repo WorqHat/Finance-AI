@@ -8,11 +8,8 @@ import Cookies from "js-cookie";
 
 const Dashboard = () => {
   const fetchTransactions = async () => {
-    const accessToken = Cookies.get("accessToken");
     const transactions = await axios.get(`${server_url}transactions/`, {
-      headers: {
-        Cookie: `accessToken=${accessToken}`,
-      },
+      withCredentials: true,
     });
 
     console.log(transactions);
