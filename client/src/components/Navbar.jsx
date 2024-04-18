@@ -11,7 +11,7 @@ const Navbar = () => {
   const handleLogoutClick = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/v1/users/logout/"
+        "http://localhost:8000/api/v1/users/logout"
       );
       console.log(response);
       dispatch(logout());

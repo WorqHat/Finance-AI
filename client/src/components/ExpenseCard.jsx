@@ -1,6 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 
 const ExpenseCard = () => {
+  const [error, setError] = useState("");
+  const fetchedTransactions = useSelector(
+    (store) => store.transaction.allTransactions
+  );
+
+  if (!fetchedTransactions) {
+    setError("No transactions found");
+  }
+  console.log(error);
+
   return (
     <table className="border-collapse w-full shadow-md">
       <thead>
@@ -10,35 +21,24 @@ const ExpenseCard = () => {
           <th className="text-lg text-red-600">Expense</th>
         </tr>
       </thead>
+
       <tbody>
-        <tr>
-          <td className=" px-8 py-4">
-            <div className="flex gap-8 py-4">
-              <h1>Category</h1>
-              <h1>description</h1>
-            </div>
-            <div className="flex gap-8 py-4">
-              <h1>Category</h1>
-              <h1>description</h1>
-            </div>
-          </td>
-          <td className=" px-8 py-4">
-            <div className="py-4">
-              <h1>Amount</h1>
-            </div>
-            <div className="py-4">
-              <h1>Amount</h1>
-            </div>
-          </td>
-          <td className=" px-8 py-4">
-            <div className="py-4">
-              <h1>Amount</h1>
-            </div>
-            <div className="py-4">
-              <h1>Amount</h1>
-            </div>
-          </td>
-        </tr>
+        {fetchedTransactions?.map((transaction) => (
+          <tr key={transaction._id}>
+            <td className="px-8 py-4">{transaction.category}</td>
+
+            <td className="px-8 py-4">
+              {transaction.transactionType === "income"
+                ? transaction.amount
+                : ""}
+            </td>
+            <td className="px-8 py-4">
+              {transaction.transactionType === "expense"
+                ? transaction.amount
+                : ""}
+            </td>
+          </tr>
+        ))}
       </tbody>
     </table>
   );
