@@ -15,6 +15,7 @@ import Dashboard from "./pages/Dashboard.jsx";
 import { Provider } from "react-redux";
 import appStore from "./utils/appStore.jsx";
 import AuthLayout from "./components/AuthLayout.jsx";
+import Adviser from "./pages/Adviser.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -42,6 +43,15 @@ const router = createBrowserRouter(
         element={
           <AuthLayout path={"/dashboard"}>
             <Dashboard />
+          </AuthLayout>
+        }
+      />
+
+      <Route
+        path="/adviser"
+        element={
+          <AuthLayout path={"/adviser"}>
+            <Adviser />
           </AuthLayout>
         }
       />
