@@ -16,6 +16,7 @@ import { Provider } from "react-redux";
 import appStore from "./utils/appStore.jsx";
 import AuthLayout from "./components/AuthLayout.jsx";
 import Adviser from "./pages/Adviser.jsx";
+import ResponseParser from "./pages/Testing.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -55,6 +56,7 @@ const router = createBrowserRouter(
           </AuthLayout>
         }
       />
+      <Route path="/testing" element={<ResponseParser />} />
     </Route>
   )
 );
