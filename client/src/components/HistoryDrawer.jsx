@@ -8,8 +8,13 @@ const HistoryDrawer = () => {
 
   return (
     <>
-      <div className="flex min-h-[50vh] items-center justify-center">
-        <Button onClick={() => setIsOpen(true)}>Show History</Button>
+      <div className="flex  p-4">
+        <Button
+          className="bg-white text-black hover:text-white hover:bg-black border border-black"
+          onClick={() => setIsOpen(true)}
+        >
+          Show History
+        </Button>
       </div>
       <Drawer open={isOpen} onClose={handleClose} position="right">
         <Drawer.Header title="History" />

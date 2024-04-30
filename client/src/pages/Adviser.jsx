@@ -77,8 +77,6 @@ const Adviser = () => {
       const content = JSON.parse(response.data.content);
 
       setAdvice(content[0].response.Analysis);
-      console.log(response.data.content);
-      console.log("parsed response", content[0].response.Analysis);
     } catch (error) {
       console.log("error while getting the advice response", error);
     } finally {
