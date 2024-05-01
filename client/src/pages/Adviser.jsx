@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { Loading } from "../components/Loading";
 import { Popup } from "../components/Popup";
+import Shimmer from "../components/Shimmer";
 
 const Adviser = () => {
   const [isStatementUpload, setIsStatementUpload] = useState(false);
@@ -131,8 +132,8 @@ const Adviser = () => {
             {!advice ? (
               <div className="flex justify-center items-center">
                 {isLoading ? (
-                  <div>
-                    <Loading />
+                  <div className="w-full h-full">
+                    <Shimmer />
                   </div>
                 ) : (
                   <div className="h-80 text-center flex justify-center items-center mt-10 font-semibold text-2xl">
@@ -143,8 +144,8 @@ const Adviser = () => {
             ) : (
               <div className="flex justify-center items-center">
                 {isLoading ? (
-                  <div>
-                    <Loading />
+                  <div className="w-full h-full">
+                    <Shimmer />
                   </div>
                 ) : (
                   <div className="container mx-auto py-8 ">
@@ -231,7 +232,7 @@ const Adviser = () => {
                   bottom: "10px",
                 }}
               >
-                <SendHorizonal />
+                {isLoading ? <Loading /> : <SendHorizonal />}
               </button>
             </div>
           </div>

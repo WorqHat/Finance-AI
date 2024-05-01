@@ -5,6 +5,7 @@ import RightMenu from "../components/RightMenu";
 import axios from "axios";
 import { server_url } from "../utils/constants.";
 import { useSelector } from "react-redux";
+import { ExpenseTable } from "../components/ExpenseTable";
 
 const Dashboard = () => {
   return (
@@ -13,7 +14,7 @@ const Dashboard = () => {
         {/* {fetchedExpenses.map((expense) => {
           <ExpenseCard key={expense._id} transaction={expense} />;
         })} */}
-        <ExpenseCard />
+        <ExpenseTable />
       </div>
       <div className="w-1/2">
         <RightMenu />

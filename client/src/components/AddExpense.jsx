@@ -62,7 +62,7 @@ const AddExpense = () => {
   }, []);
 
   const createTransaction = async () => {
-    if (amount === 0 || category === "" || description === "") {
+    if (amount === 0 || category === "") {
       alert("Please fill all the fields");
     }
 
@@ -117,7 +117,7 @@ const AddExpense = () => {
         </button>
       </div>
       <div className="gap-8 flex flex-col py-8">
-        <div>
+        <div className="flex justify-center items-center ">
           <label htmlFor="Date" className="pr-4">
             Date
           </label>
@@ -128,10 +128,11 @@ const AddExpense = () => {
             }}
             type="date"
             id="Date"
+            className="border-none "
           />
         </div>
 
-        <div>
+        <div className="flex justify-center items-center ">
           <label htmlFor="Amount" className="pr-4">
             Amount
           </label>
@@ -143,10 +144,11 @@ const AddExpense = () => {
             type="number"
             id="Amount"
             placeholder="00"
+            className="border-b-2"
           />
         </div>
 
-        <div>
+        <div className="flex justify-center items-center ">
           {" "}
           <label htmlFor="Category" className="pr-4">
             Category
@@ -159,10 +161,11 @@ const AddExpense = () => {
             type="text"
             id="Category"
             placeholder="Food, grocery, medical..."
+            className="border-b-2 "
           />
         </div>
 
-        <div>
+        <div className="flex justify-center items-center ">
           <label htmlFor="Description" className="pr-4">
             Description
           </label>
@@ -174,6 +177,7 @@ const AddExpense = () => {
             type="text"
             id="Description"
             placeholder="dosa with friends"
+            className="border-b-2 align-middle"
           />
         </div>
       </div>
