@@ -62,7 +62,7 @@ const Adviser = () => {
         }
     }]`,
       randomness: 0.5,
-      training_data: "Transactions data: " + JSON.stringify(transactions),
+      training_data: "Transactions data: " + JSON.stringify(transactions) ,
       response_type: "json",
     }),
   };

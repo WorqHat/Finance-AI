@@ -57,7 +57,7 @@ export function SpendingTimeline() {
   }, []);
 
   return (
-    <div className="overflow-y-scroll">
+    <div className="overflow-y-scroll h-3/4">
       <Accordion collapseAll>
         <Accordion.Panel>
           <Accordion.Title>Your Spending Habits</Accordion.Title>

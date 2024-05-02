@@ -5,9 +5,15 @@ import Widget from "./Widget";
 
 const RightMenu = () => {
   return (
-    <div className="m-4">
-      <AddExpense />
-      {/* <Widget /> */}
+    <div className="m-4 flex flex-col">
+      <div className="fixed  right-4">
+        <AddExpense />
+      </div>
+      <div className="fixed bottom-0">
+        {" "}
+        {/* Adjust the margin top as needed */}
+        <ChatBot />
+      </div>
     </div>
   );
 };

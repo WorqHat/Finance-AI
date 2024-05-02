@@ -1,15 +1,14 @@
 import React from "react";
+import { ChatBotDial } from "./ChatBotDial";
 
 const ChatBot = () => {
   return (
-    <div className="p-4 m-4 shadow-md">
-      <div className="h-32">
-        <h1>Click to get the latest finance news and chat</h1>
-      </div>
-      <div>
-        <input type="text" placeholder="Type here" />
-        <button>{"->"} </button>
-      </div>
+    <div className="p-4 m-4 shadow-md ">
+      <h1 className="py-4 font-semibold">
+        Want to know whats the latest in finance? <br></br>Want to know if it
+        benifits you?{" "}
+      </h1>
+      <ChatBotDial />
     </div>
   );
 };

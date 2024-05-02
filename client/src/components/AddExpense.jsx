@@ -93,7 +93,7 @@ const AddExpense = () => {
   };
 
   return (
-    <div className="border-l-2 p-4 mb-4 shadow-md shadow-blue-950 fixed  ">
+    <div className="border-l-2 p-4 mb-4 shadow-md   ">
       <div className="flex justify-between">
         <button
           onClick={() => {
@@ -116,7 +116,7 @@ const AddExpense = () => {
           Income
         </button>
       </div>
-      <div className="gap-8 flex flex-col py-8">
+      <div className="gap-6 flex flex-col py-6">
         <div className="flex justify-center items-center ">
           <label htmlFor="Date" className="pr-4">
             Date
