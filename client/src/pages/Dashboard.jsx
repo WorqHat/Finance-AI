@@ -3,7 +3,6 @@ import Sidemenu from "../components/Sidemenu";
 import ExpenseCard from "../components/ExpenseCard";
 import RightMenu from "../components/RightMenu";
 import axios from "axios";
-import { server_url } from "../utils/constants.";
 import { useSelector } from "react-redux";
 import { ExpenseTable } from "../components/ExpenseTable";
 

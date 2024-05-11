@@ -17,9 +17,18 @@ const transactionSlice = createSlice({
     addAllTransactions: (state, action) => {
       state.allTransactions = action.payload.reverse();
     },
+    deleteTransaction: (state, action) => {
+      state.allTransactions = state.allTransactions.filter(
+        (transaction) => transaction._id !== action.payload
+      );
+    },
   },
 });
 
-export const { addExpenses, addIncomes, addAllTransactions } =
-  transactionSlice.actions;
+export const {
+  addExpenses,
+  addIncomes,
+  addAllTransactions,
+  deleteTransaction,
+} = transactionSlice.actions;
 export default transactionSlice.reducer;

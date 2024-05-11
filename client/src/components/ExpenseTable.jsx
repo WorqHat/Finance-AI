@@ -1,18 +1,35 @@
 import { Table } from "flowbite-react";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Delete } from "lucide-react";
+import { EditCard } from "./EditCard";
+import axios from "axios";
+import { server_url } from "../utils/constants";
 
 export function ExpenseTable() {
   const [error, setError] = useState("");
   const fetchedTransactions = useSelector(
     (store) => store.transaction.allTransactions
   );
+  const dispatch = useDispatch();
 
   if (!fetchedTransactions) {
     setError("No transactions found");
   }
-  console.log(error);
+
+  const handleDelete = async (transactionId) => {
+    try {
+      const response = await axios.delete(
+        `${server_url}transactions/${transactionId}`,
+        {
+          withCredentials: true,
+        }
+      );
+      dispatch(deleteTransaction(transactionId));
+    } catch (error) {
+      console.error("Error deleting transactions:", error);
+    }
+  };
 
   return (
     <div className="overflow-x-auto">
@@ -48,34 +65,14 @@ export function ExpenseTable() {
                 {transaction.amount}
               </Table.Cell>
               <Table.Cell>
-                <a
-                  href="#"
-                  className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
-                >
-                  Edit
-                </a>
+                <EditCard {...transaction} />
               </Table.Cell>
               <Table.Cell>
                 <div className="hover:text-red-600 cursor-pointer">
-                  <Delete />{" "}
+                  <Delete onClick={() => handleDelete(transaction._id)} />
                 </div>
               </Table.Cell>
             </Table.Row>
-
-            // <tr key={transaction._id}>
-            //   <td className="px-8 py-4">{transaction.category}</td>
-
-            //   <td className="px-8 py-4">
-            //     {transaction.transactionType === "income"
-            //       ? transaction.amount
-            //       : ""}
-            //   </td>
-            //   <td className="px-8 py-4">
-            //     {transaction.transactionType === "expense"
-            //       ? transaction.amount
-            //       : ""}
-            //   </td>
-            // </tr>
           ))}
         </Table.Body>
       </Table>

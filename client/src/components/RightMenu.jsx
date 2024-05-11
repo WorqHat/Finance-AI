@@ -12,7 +12,7 @@ const RightMenu = () => {
       <div className="fixed bottom-0">
         {" "}
         {/* Adjust the margin top as needed */}
-        <ChatBot />
+        {/* <ChatBot /> */}
       </div>
     </div>
   );

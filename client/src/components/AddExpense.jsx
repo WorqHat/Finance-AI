@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { server_url } from "../utils/constants.";
+import { useDispatch, useSelector } from "react-redux";
+import { server_url } from "../utils/constants";
 import axios from "axios";
 import {
   addAllTransactions,
@@ -24,6 +24,10 @@ const AddExpense = () => {
     const day = String(today.getDate()).padStart(2, "0");
     return `${year}-${month}-${day}`;
   }
+
+  const storeTransactions = useSelector(
+    (state) => state.transaction.allTransactions
+  );
 
   const fetchTransactionsFromServer = async () => {
     try {
@@ -59,7 +63,7 @@ const AddExpense = () => {
   };
   useEffect(() => {
     fetchTransactionsFromServer();
-  }, []);
+  }, [storeTransactions]);
 
   const createTransaction = async () => {
     if (amount === 0 || category === "") {
