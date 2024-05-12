@@ -17,20 +17,18 @@ const Sidemenu = () => {
             Dashboard
           </li>
         </Link>
-        <li className="p-3 hover:shadow-sm hover:bg-gray-200 rounded-xl cursor-pointer flex items-center gap-2">
-          {budgetIcon}
-          Budgets
-        </li>
+        <Link to="/budgets">
+          <li className="p-3 hover:shadow-sm hover:bg-gray-200 rounded-xl cursor-pointer flex items-center gap-2">
+            {budgetIcon}
+            Budgets
+          </li>
+        </Link>
         <Link to="/adviser">
           <li className="p-3 hover:shadow-sm hover:bg-gray-200 rounded-xl cursor-pointer flex items-center gap-2">
             {adviserIcon}
             Adviser
           </li>
         </Link>
-        <li className="p-3 hover:shadow-sm hover:bg-gray-200 rounded-xl cursor-pointer flex items-center gap-2">
-          {statsIcon}
-          Stats
-        </li>
       </ul>
     </div>
   );

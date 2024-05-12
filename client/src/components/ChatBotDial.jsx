@@ -1,13 +1,39 @@
-import { Button, Modal, Textarea } from "flowbite-react";
-import { SendHorizonal } from "lucide-react";
+import { Button, Modal, Textarea, Tooltip } from "flowbite-react";
+import { MessageSquareCode, SendHorizonal } from "lucide-react";
 import { useState } from "react";
 
-export function ChatBotDial() {
+export async function ChatBotDial() {
   const [openModal, setOpenModal] = useState(false);
+
+  const options = {
+    method: "POST",
+    headers: {
+      Authorization: "Bearer <token>",
+      "Content-Type": "application/json",
+    },
+    body: '{"question":"What is the capital of India?","preserve_history":true,"randomness":0.5,"stream_data":false,"conversation_history":[{"What is the capital of India?":"New Delhi"},{"What is the capital of USA?":"Washington DC"}],"training_data":"You are alex and you are one of the best Tour Guides.","response_type":"text"}',
+  };
+
+  const latestNews = await axios.get(`${server_url}transactions/`, {
+    withCredentials: true,
+  });
 
   return (
     <>
-      <Button onClick={() => setOpenModal(true)}>Click here</Button>
+      <Tooltip
+        content="See whats latest.."
+        animation="duration-500"
+        placement="left"
+        style="light"
+      >
+        <button
+          className="m-4 p-3 bg-blue-500 rounded-md"
+          onClick={() => setOpenModal(true)}
+        >
+          {" "}
+          <MessageSquareCode className="text-white " />
+        </button>{" "}
+      </Tooltip>
       <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>
         <Modal.Header>ChatBot</Modal.Header>
         <Modal.Body>

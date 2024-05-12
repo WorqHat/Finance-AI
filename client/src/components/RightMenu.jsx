@@ -9,10 +9,10 @@ const RightMenu = () => {
       <div className="fixed  right-4">
         <AddExpense />
       </div>
-      <div className="fixed bottom-0">
+      <div className="fixed right-0 bottom-9">
         {" "}
         {/* Adjust the margin top as needed */}
-        {/* <ChatBot /> */}
+        <ChatBot />
       </div>
     </div>
   );

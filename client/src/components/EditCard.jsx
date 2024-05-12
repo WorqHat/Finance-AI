@@ -1,6 +1,8 @@
+import axios from "axios";
 import { Button, Modal, Select } from "flowbite-react";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { server_url } from "../utils/constants";
 
 export function EditCard({
   _id,
@@ -15,7 +17,7 @@ export function EditCard({
   const [updatedAmount, setUpdatedAmount] = useState(amount);
   const [updatedCategory, setUpdatedCategory] = useState(category);
   const [updatedDescription, setUpdatedDescription] = useState(description);
-
+  const dispatch = useDispatch();
   function handleEdit() {
     console.log("Edit button clicked");
     console.log(
@@ -27,6 +29,34 @@ export function EditCard({
       transactionType
     );
   }
+
+  const updateTransaction = async (transactionId) => {
+    try {
+      const updatedTransaction = await axios.put(
+        `${server_url}transactions/${transactionId}`,
+
+        {
+          amount: updatedAmount,
+          category: updatedCategory,
+          description: updatedDescription,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+
+      if (!updatedTransaction) {
+        console.log("Transaction editing failed");
+      }
+
+      console.log("updated transaction", updatedTransaction);
+      // dispatch(updateTransaction(updatedTransaction.data.data.transaction));
+    } catch (error) {
+      // setError("error updating transaction", error);
+      console.log("error updating transaction", error);
+    }
+  };
+
   return (
     <>
       <div className="">
@@ -60,7 +90,7 @@ export function EditCard({
                   Amount
                 </label>
                 <input
-                  value={amount}
+                  value={updatedAmount || amount}
                   onChange={(e) => {
                     setUpdatedAmount(e.target.value);
                   }}
@@ -77,7 +107,7 @@ export function EditCard({
                   Category
                 </label>
                 <input
-                  value={category}
+                  value={updatedCategory || category}
                   onChange={(e) => {
                     setUpdatedCategory(e.target.value);
                   }}
@@ -93,7 +123,7 @@ export function EditCard({
                   Description
                 </label>
                 <input
-                  value={description}
+                  value={updatedDescription || description}
                   onChange={(e) => {
                     setUpdatedDescription(e.target.value);
                   }}
@@ -105,7 +135,10 @@ export function EditCard({
               </div>
             </div>
 
-            <button className=" border border-blue-500 px-6 py-2 rounded-md  font-semibold">
+            <button
+              onClick={() => updateTransaction(_id)}
+              className=" border border-blue-500 px-6 py-2 rounded-md  font-semibold"
+            >
               Update
             </button>
 

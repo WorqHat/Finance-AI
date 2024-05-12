@@ -80,6 +80,39 @@ const deleteTransaction = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, {}, "Transaction deleted successfully"));
 });
 
-//TODO: Implement updateTransaction function
+const updateTransaction = asyncHandler(async (req, res) => {
+  const transactionId = req.params.id;
 
-export { createTransaction, getTransactions, deleteTransaction };
+  if (!transactionId) {
+    throw new ApiError(404, "transactionId required");
+  }
+
+  const updatedTransaction = await Transaction.findByIdAndUpdate(
+    transactionId,
+    req.body,
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+  if (!updatedTransaction) {
+    throw new ApiError(500, "Error while updating transaction");
+  }
+
+  return res.status(200).json(
+    new ApiResponse(
+      200,
+      {
+        updatedTransaction: updatedTransaction,
+      },
+      "Transactions updated successfully"
+    )
+  );
+});
+
+export {
+  createTransaction,
+  getTransactions,
+  deleteTransaction,
+  updateTransaction,
+};

@@ -22,6 +22,14 @@ const transactionSlice = createSlice({
         (transaction) => transaction._id !== action.payload
       );
     },
+    updateTransaction: (state, action) => {
+      state.allTransactions = state.allTransactions.map((transaction) => {
+        if (transaction._id === action.payload._id) {
+          return action.payload;
+        }
+        return transaction;
+      });
+    },
   },
 });
 
@@ -30,5 +38,6 @@ export const {
   addIncomes,
   addAllTransactions,
   deleteTransaction,
+  updateTransaction,
 } = transactionSlice.actions;
 export default transactionSlice.reducer;

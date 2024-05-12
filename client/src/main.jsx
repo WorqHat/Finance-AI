@@ -17,6 +17,7 @@ import appStore from "./utils/appStore.jsx";
 import AuthLayout from "./components/AuthLayout.jsx";
 import Adviser from "./pages/Adviser.jsx";
 import ResponseParser from "./pages/Testing.jsx";
+import Budgets from "./pages/Budgets.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -56,6 +57,15 @@ const router = createBrowserRouter(
           </AuthLayout>
         }
       />
+      <Route
+        path="/budgets"
+        element={
+          <AuthLayout path={"/budgets"}>
+            <Budgets />
+          </AuthLayout>
+        }
+      />
+
       <Route path="/testing" element={<ResponseParser />} />
     </Route>
   )

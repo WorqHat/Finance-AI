@@ -62,7 +62,7 @@ const Adviser = () => {
         }
     }]`,
       randomness: 0.5,
-      training_data: "Transactions data: " + JSON.stringify(transactions) ,
+      training_data: "Transactions data: " + JSON.stringify(transactions),
       response_type: "json",
     }),
   };
@@ -210,10 +210,7 @@ const Adviser = () => {
 
           {/* textarea */}
           <div className="flex justify-between">
-            <div
-              style={{ position: "relative" }}
-              className="p-4 shadow-md  w-full flex "
-            >
+            <div style={{ position: "relative" }} className="  w-full flex ">
               <Textarea
                 id="comment"
                 placeholder="Any specific instructions???"
