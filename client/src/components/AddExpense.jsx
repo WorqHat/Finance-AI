@@ -61,6 +61,7 @@ const AddExpense = () => {
       console.error("Error fetching transactions:", error);
     }
   };
+
   useEffect(() => {
     fetchTransactionsFromServer();
   }, [storeTransactions]);

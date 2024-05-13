@@ -49,6 +49,7 @@ export function EditCard({
         console.log("Transaction editing failed");
       }
 
+      setOpenModal(false);
       console.log("updated transaction", updatedTransaction);
       // dispatch(updateTransaction(updatedTransaction.data.data.transaction));
     } catch (error) {

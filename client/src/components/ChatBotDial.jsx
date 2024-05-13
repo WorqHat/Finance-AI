@@ -1,22 +1,54 @@
+import axios from "axios";
 import { Button, Modal, Textarea, Tooltip } from "flowbite-react";
 import { MessageSquareCode, SendHorizonal } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Loading } from "./Loading";
 
-export async function ChatBotDial() {
+export function ChatBotDial() {
   const [openModal, setOpenModal] = useState(false);
+  const [latestNews, setLatestNews] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  const options = {
-    method: "POST",
-    headers: {
-      Authorization: "Bearer <token>",
-      "Content-Type": "application/json",
-    },
-    body: '{"question":"What is the capital of India?","preserve_history":true,"randomness":0.5,"stream_data":false,"conversation_history":[{"What is the capital of India?":"New Delhi"},{"What is the capital of USA?":"Washington DC"}],"training_data":"You are alex and you are one of the best Tour Guides.","response_type":"text"}',
-  };
+  const text = `@Online  Whats the latest news in the finance industry in India? `
+  //todo: check whetger online
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      const options = {
+        method: "POST",
+        headers: {
+          Authorization:
+            "Bearer " + import.meta.env.VITE_REACT_APP_WORQHAT_API_KEY,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          question: text,
+          randomness: 0.5,
+          response_type: "json",
+          stream_data: false,
+          preserve_history: true,
+        }),
+      };
 
-  const latestNews = await axios.get(`${server_url}transactions/`, {
-    withCredentials: true,
-  });
+      try {
+        const response = await axios.post(
+          "https://api.worqhat.com/api/ai/content/v3/alpha",
+          options.body,
+          { headers: options.headers }
+        );
+        const latestNews = response.data.content;
+        console.log("latestNews", latestNews);
+        const parsedNews = JSON.parse(latestNews);
+        console.log("parsedNews", parsedNews.latestFinanceNews);
+        setLatestNews(parsedNews.latestFinanceNews);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -37,12 +69,22 @@ export async function ChatBotDial() {
       <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>
         <Modal.Header>ChatBot</Modal.Header>
         <Modal.Body>
-          <div className="space-y-6 text-base leading-relaxed text-gray-500 dark:text-gray-400 min-h-64">
-            <p className="">
-              Heres
-              latest..............................................................................................................................
-            </p>
+          <div className="space-y-6 text-base leading-relaxed   min-h-64">
+            {isLoading ? (
+              <Loading />
+            ) : (
+              <ul className="bg-gray-200 ">
+                {latestNews &&
+                  latestNews.map((news, index) => (
+                    <li className="p-4 m-4 " key={index}>
+                      {" "}
+                      {news.news}{" "}
+                    </li>
+                  ))}
+              </ul>
+            )}
           </div>
+          {console.log("latestNewsState", latestNews)}
         </Modal.Body>
         <Modal.Footer>
           <div style={{ position: "relative" }} className="p-4  w-full flex ">
