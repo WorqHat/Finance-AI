@@ -1,8 +1,10 @@
 import axios from "axios";
 import { Button, Modal, Select } from "flowbite-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { server_url } from "../utils/constants";
+import { useTransactions } from "../hooks";
+import { editTransaction } from "../utils/transactionSlice";
 
 export function EditCard({
   _id,
@@ -12,14 +14,22 @@ export function EditCard({
   transactionType,
   createdAt,
 }) {
+  useTransactions();
+
   const [openModal, setOpenModal] = useState(false);
   const [modalPlacement, setModalPlacement] = useState("center");
   const [updatedAmount, setUpdatedAmount] = useState(amount);
   const [updatedCategory, setUpdatedCategory] = useState(category);
   const [updatedDescription, setUpdatedDescription] = useState(description);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setUpdatedAmount(amount);
+    setUpdatedCategory(category);
+    setUpdatedDescription(description);
+  }, [category, description, amount]);
+
   function handleEdit() {
-    console.log("Edit button clicked");
     console.log(
       "Edit transaction",
       _id,
@@ -50,8 +60,9 @@ export function EditCard({
       }
 
       setOpenModal(false);
-      console.log("updated transaction", updatedTransaction);
-      // dispatch(updateTransaction(updatedTransaction.data.data.transaction));
+      const transactionObj = updatedTransaction.data.data.updatedTransaction;
+
+      dispatch(editTransaction(transactionObj));
     } catch (error) {
       // setError("error updating transaction", error);
       console.log("error updating transaction", error);

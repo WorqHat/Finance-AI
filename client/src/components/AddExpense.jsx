@@ -7,6 +7,7 @@ import {
   addExpenses,
   addIncomes,
 } from "../utils/transactionSlice";
+import { useTransactions } from "../hooks";
 
 const AddExpense = () => {
   const dispatch = useDispatch();
@@ -24,10 +25,7 @@ const AddExpense = () => {
     const day = String(today.getDate()).padStart(2, "0");
     return `${year}-${month}-${day}`;
   }
-
-  const storeTransactions = useSelector(
-    (state) => state.transaction.allTransactions
-  );
+  useTransactions();
 
   const fetchTransactionsFromServer = async () => {
     try {
@@ -61,10 +59,6 @@ const AddExpense = () => {
       console.error("Error fetching transactions:", error);
     }
   };
-
-  useEffect(() => {
-    fetchTransactionsFromServer();
-  }, [storeTransactions]);
 
   const createTransaction = async () => {
     if (amount === 0 || category === "") {

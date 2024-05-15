@@ -5,12 +5,20 @@ import { Delete } from "lucide-react";
 import { EditCard } from "./EditCard";
 import axios from "axios";
 import { server_url } from "../utils/constants";
+import { useTransactions } from "../hooks";
+import { deleteTransaction } from "../utils/transactionSlice";
 
 export function ExpenseTable() {
   const [error, setError] = useState("");
+
+  useTransactions();
+
   const fetchedTransactions = useSelector(
     (store) => store.transaction.allTransactions
   );
+
+  console.log("fett", fetchedTransactions);
+
   const dispatch = useDispatch();
 
   if (!fetchedTransactions) {
@@ -54,6 +62,7 @@ export function ExpenseTable() {
                 })}
               </Table.Cell>
               <Table.Cell>{transaction.category}</Table.Cell>
+
               <Table.Cell>{transaction?.description || "---"}</Table.Cell>
               <Table.Cell
                 className={
