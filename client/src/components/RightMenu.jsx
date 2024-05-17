@@ -7,6 +7,7 @@ import { ChatBotDial } from "./ChatBotDial";
 import { CodeSquare } from "lucide-react";
 
 const RightMenu = () => {
+  // useLatest();
   return (
     <div className="m-4 flex flex-col">
       <div className="fixed  right-4">

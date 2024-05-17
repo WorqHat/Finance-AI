@@ -4,13 +4,20 @@ import { MessageSquareCode, SendHorizonal } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Loading } from "./Loading";
 import { useLatest } from "../hooks/index";
+import { worqhat_url } from "../utils/constants";
 
 export function ChatBotDial() {
   const [openModal, setOpenModal] = useState(false);
-  const [chat, setChat] = useState();
+  const [chat, setChat] = useState("");
   const [chatHistory, setChatHistory] = useState([]);
-  const { latestNews, isLoading } = useLatest();
-  async function sendChat(latestNews, chat) {
+  const [onlineAttribute, setOnlineAttribute] = useState(false);
+  const [isAttribute, setIsAttribute] = useState(false);
+
+  async function sendChat(chat) {
+    console.log("reached");
+
+    const query = (onlineAttribute ? "@online " : "") + chat.trim();
+
     const options = {
       method: "POST",
       headers: {
@@ -19,40 +26,40 @@ export function ChatBotDial() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        question: `Given the training data of latest news in the finance industry in India and the user's chat, analyze the data and give a single response. (only return json no text)
-        use the format as: {
-          
+        question: query,
+        randomness: 0.5,
+        preserve_history: true,
+        training_data: [
+          // "LatestNews: " + JSON.stringify(latestNews),
+          // "UserChat: " + chat,
+          // "Previous chat: " + chatHistory,
+          ` {
             response: {
-            
           }
         }`,
-        randomness: 0.5,
-        training_data: [
-          "LatestNews: " + JSON.stringify(latestNews),
-          "UserChat: " + chat,
-          "Previous chat: " + chatHistory,
-          "use format",
+          "give short answers",
         ],
 
-        response_type: "json",
+        response_type: "text",
       }),
     };
 
     try {
-      const response = await axios.post(
-        "https://api.worqhat.com/api/ai/content/v2",
-        options.body,
-        { headers: options.headers }
-      );
-      const stringifyContent = JSON.stringify(response.data.content);
-      const content = JSON.parse(stringifyContent);
-      console.log("content", content);
+      const url = onlineAttribute
+        ? `${worqhat_url}v3/alpha`
+        : `${worqhat_url}v2`;
+
+      const response = await axios.post(url, options.body, {
+        headers: options.headers,
+      });
+      const content = response.data.content;
+      console.log("response", response);
 
       setChatHistory([
         ...chatHistory,
         {
-          chat,
-          response: content.response.analysis || content.response.message,
+          chat: chat,
+          response: content,
         },
       ]);
     } catch (error) {
@@ -78,8 +85,8 @@ export function ChatBotDial() {
       </Tooltip>
       <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>
         <Modal.Header>ChatBot</Modal.Header>
-        <Modal.Body>
-          <div className=" text-base leading-relaxed   min-h-64">
+        <Modal.Body className="">
+          {/* <div className=" text-base leading-relaxed   min-h-64">
             {isLoading ? (
               <Loading />
             ) : (
@@ -93,7 +100,7 @@ export function ChatBotDial() {
                   ))}
               </ul>
             )}
-          </div>
+          </div> */}
 
           <div>
             {chatHistory &&
@@ -104,18 +111,30 @@ export function ChatBotDial() {
                       {chat.chat}
                     </div>
                   </div>
-                  <div className="bg-gray-100 rounded-2xl my-4 mx-1 p-2 text-left">
+                  <div className="bg-gray-100 rounded-2xl my-4 mx-1 w-1/2 p-2 text-left">
                     {chat.response}
                   </div>
                 </div>
               ))}
           </div>
         </Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer className="flex flex-col">
+          <div className="flex justify-start w-full ">
+            <label htmlFor="onlineCheckbox" className="m-2">
+              <input
+                type="checkbox"
+                id="onlineCheckbox"
+                checked={onlineAttribute}
+                onChange={(e) => setOnlineAttribute(e.target.checked)}
+              />{" "}
+              @online
+            </label>
+          </div>
           <div style={{ position: "relative" }} className=" w-full flex ">
             <Textarea
               id="comment"
-              placeholder="chat here"
+              placeholder={"chat here"}
+              value={chat}
               required
               rows={3}
               className=""
@@ -123,7 +142,10 @@ export function ChatBotDial() {
             />
             <button
               className="bg-blue-500 flex items-center text-center p-3  text-white rounded-md h-10 w-10 cursor-pointer"
-              onClick={() => sendChat(latestNews, chat)}
+              onClick={() => {
+                sendChat(chat);
+                setChat("");
+              }}
               style={{
                 position: "absolute",
                 right: "10px",

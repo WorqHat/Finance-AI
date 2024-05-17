@@ -12,12 +12,7 @@ export const useLatest = () => {
   const [latestNews, setLatestNews] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const query = `Whats the latest news in the finance industry in India? (only return json no text)
-  [use the format as: {
-    latestFinanceNews: [
-      //all the objects in the array
-    ]
-  }]`;
+  const query = `Whats the latest news in the finance industry in India? if there is no news, return an "No major news for today" message.`;
   const fetchData = async () => {
     setIsLoading(true);
     const options = {
@@ -30,10 +25,16 @@ export const useLatest = () => {
       },
       body: JSON.stringify({
         question: query,
-        randomness: 0.5,
         response_type: "json",
         stream_data: false,
         preserve_history: true,
+        training_data: `use the response format as: {
+            
+              {
+               //all the objects in the array
+              }
+            
+          }`,
       }),
     };
 
@@ -43,10 +44,11 @@ export const useLatest = () => {
         options.body,
         { headers: options.headers }
       );
-      console.log("response", response);
-      const parsedNews = JSON.parse(response.data.content);
-      console.log("news", parsedNews);
-      setLatestNews(parsedNews);
+      console.log("response", response.data.content);
+      const content = JSON.stringify(response.data.content);
+      const parsedResponse = JSON.parse(content);
+      console.log("parsedResponse", parsedResponse);
+      // setLatestNews(parsedNews);
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
@@ -56,8 +58,6 @@ export const useLatest = () => {
   useEffect(() => {
     fetchData();
   }, []);
-
-  console.log("latestNews", latestNews);
 
   return { latestNews, isLoading };
 };
