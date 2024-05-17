@@ -17,8 +17,6 @@ export function ExpenseTable() {
     (store) => store.transaction.allTransactions
   );
 
-  console.log("fett", fetchedTransactions);
-
   const dispatch = useDispatch();
 
   if (!fetchedTransactions) {

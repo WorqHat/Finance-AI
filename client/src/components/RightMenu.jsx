@@ -2,6 +2,9 @@ import React from "react";
 import AddExpense from "./AddExpense";
 import ChatBot from "./ChatBot";
 import Widget from "./Widget";
+import { useLatest } from "../hooks/index";
+import { ChatBotDial } from "./ChatBotDial";
+import { CodeSquare } from "lucide-react";
 
 const RightMenu = () => {
   return (
@@ -9,10 +12,9 @@ const RightMenu = () => {
       <div className="fixed  right-4">
         <AddExpense />
       </div>
-      <div className="fixed right-0 bottom-9">
+      <div className="fixed right-0 bottom-9 m-4">
         {" "}
-        {/* Adjust the margin top as needed */}
-        <ChatBot />
+        <ChatBotDial />
       </div>
     </div>
   );

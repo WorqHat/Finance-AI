@@ -5,7 +5,6 @@ import { MessageSquareCode } from "lucide-react";
 const ChatBot = () => {
   return (
     <div className="m-4">
-      <div> </div>
       <ChatBotDial />
     </div>
   );

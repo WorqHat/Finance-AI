@@ -12,46 +12,52 @@ export const useLatest = () => {
   const [latestNews, setLatestNews] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const query = `Whats the latest news in the finance industry in India?`;
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      const options = {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${
-            import.meta.env.VITE_REACT_APP_WORQHAT_API_KEY
-          }`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          question: query,
-          randomness: 0.5,
-          response_type: "json",
-          stream_data: false,
-          preserve_history: true,
-        }),
-      };
-
-      try {
-        const response = await axios.post(
-          `${worqhat_url}v3/alpha`,
-          options.body,
-          { headers: options.headers }
-        );
-        const latestNewsContent = response.data.content;
-        const parsedNews = JSON.parse(latestNewsContent);
-        setLatestNews(parsedNews.latestFinanceNews);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setIsLoading(false);
-      }
+  const query = `Whats the latest news in the finance industry in India? (only return json no text)
+  [use the format as: {
+    latestFinanceNews: [
+      //all the objects in the array
+    ]
+  }]`;
+  const fetchData = async () => {
+    setIsLoading(true);
+    const options = {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${
+          import.meta.env.VITE_REACT_APP_WORQHAT_API_KEY
+        }`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        question: query,
+        randomness: 0.5,
+        response_type: "json",
+        stream_data: false,
+        preserve_history: true,
+      }),
     };
 
+    try {
+      const response = await axios.post(
+        `${worqhat_url}v3/alpha`,
+        options.body,
+        { headers: options.headers }
+      );
+      console.log("response", response);
+      const parsedNews = JSON.parse(response.data.content);
+      console.log("news", parsedNews);
+      setLatestNews(parsedNews);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  useEffect(() => {
     fetchData();
   }, []);
+
+  console.log("latestNews", latestNews);
 
   return { latestNews, isLoading };
 };
