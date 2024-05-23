@@ -8,7 +8,7 @@ function App() {
   const loggedIn = useSelector((store) => store.auth.status);
   console.log(loggedIn);
   return (
-    <div>
+    <div className="flex flex-col h-screen overflow-hidden">
       <div className="fixed top-0 right-0 left-0">
         <Navbar />
       </div>
@@ -19,7 +19,7 @@ function App() {
             <Sidemenu />
           </div>
         )}
-        <div className=" w-full">
+        <div className=" w-full ">
           <Outlet />
         </div>
       </div>

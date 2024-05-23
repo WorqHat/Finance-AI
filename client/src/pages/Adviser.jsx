@@ -7,6 +7,7 @@ import axios from "axios";
 import { Loading } from "../components/Loading";
 import { Popup } from "../components/Popup";
 import Shimmer from "../components/Shimmer";
+import { server_url } from "../utils/constants";
 
 const Adviser = () => {
   const [isStatementUpload, setIsStatementUpload] = useState(false);
@@ -76,8 +77,19 @@ const Adviser = () => {
         { headers: options.headers }
       );
       const content = JSON.parse(response.data.content);
-
       setAdvice(content[0].response.Analysis);
+
+      if (response) {
+        const history = await axios.post(
+          `${server_url}history/`,
+          { advice: content[0].response.Analysis },
+          { withCredentials: true }
+        );
+        if (!history) {
+          console.log("Error while saving history");
+        }
+        console.log(history);
+      }
     } catch (error) {
       console.log("error while getting the advice response", error);
     } finally {
@@ -96,9 +108,9 @@ const Adviser = () => {
   const { OverallAnalysis, AdviceOnBudget, SavingsTips } = advice || {};
 
   return (
-    <div className="flex justify-between max-h-screen  ">
+    <div className="flex justify-between max-h-screen overflow-hidden ">
       <div className="w-full border  m-4 p-4  flex flex-col justify-between ">
-        <div className="  flex flex-col justify-between ">
+        <div className="  flex flex-col h-full">
           {/* buttons */}
           <div className="flex justify-between">
             <button
@@ -128,7 +140,7 @@ const Adviser = () => {
             <Popup />
           </div>
           {/* contentarea */}
-          <div className="overflow-y-scroll h-96">
+          <div className="overflow-y-scroll flex-grow h-full mb-24">
             {!advice ? (
               <div className="flex justify-center items-center">
                 {isLoading ? (
@@ -142,7 +154,7 @@ const Adviser = () => {
                 )}
               </div>
             ) : (
-              <div className="flex justify-center items-center">
+              <div className="flex justify-center items-center ">
                 {isLoading ? (
                   <div className="w-full h-full">
                     <Shimmer />
@@ -209,30 +221,32 @@ const Adviser = () => {
           </div>
 
           {/* textarea */}
-          <div className="flex justify-between">
-            <div style={{ position: "relative" }} className="  w-full flex ">
-              <Textarea
-                id="comment"
-                placeholder="Any specific instructions???"
-                required
-                rows={4}
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                className=""
-              />
-              <button
-                onClick={handleAdviceRequest}
-                className="bg-blue-500 flex items-center text-center p-4 m-4 text-white rounded-md h-12 w-12 cursor-pointer"
-                style={{
-                  position: "absolute",
-                  right: "10px",
-                  bottom: "10px",
-                }}
-              >
-                {isLoading ? <Loading /> : <SendHorizonal />}
-              </button>
+          {!advice && (
+            <div className="flex justify-between mb-20">
+              <div style={{ position: "relative" }} className="  w-full flex ">
+                <Textarea
+                  id="comment"
+                  placeholder="Any specific instructions???"
+                  required
+                  rows={4}
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  className=""
+                />
+                <button
+                  onClick={handleAdviceRequest}
+                  className="bg-blue-500 flex items-center text-center p-4 m-4 text-white rounded-md h-12 w-12 cursor-pointer"
+                  style={{
+                    position: "absolute",
+                    right: "10px",
+                    bottom: "10px",
+                  }}
+                >
+                  {isLoading ? <Loading /> : <SendHorizonal />}
+                </button>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
 

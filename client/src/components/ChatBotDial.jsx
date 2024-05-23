@@ -6,15 +6,18 @@ import { Loading } from "./Loading";
 import { useLatest } from "../hooks/index";
 import { worqhat_url } from "../utils/constants";
 
-export function ChatBotDial() {
+export function ChatBotDial({ latestNews, isLoading }) {
+  console.log("latestNews", latestNews);
   const [openModal, setOpenModal] = useState(false);
   const [chat, setChat] = useState("");
   const [chatHistory, setChatHistory] = useState([]);
   const [onlineAttribute, setOnlineAttribute] = useState(false);
   const [isAttribute, setIsAttribute] = useState(false);
+  const [isFetching, setIsFetching] = useState(false);
 
   async function sendChat(chat) {
     console.log("reached");
+    setIsFetching(true);
 
     const query = (onlineAttribute ? "@online " : "") + chat.trim();
 
@@ -38,6 +41,8 @@ export function ChatBotDial() {
           }
         }`,
           "give short answers",
+          chatHistory,
+          latestNews,
         ],
 
         response_type: "text",
@@ -62,6 +67,7 @@ export function ChatBotDial() {
           response: content,
         },
       ]);
+      setIsFetching(false);
     } catch (error) {
       console.log("error while chatting", error);
     }
@@ -86,24 +92,30 @@ export function ChatBotDial() {
       <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>
         <Modal.Header>ChatBot</Modal.Header>
         <Modal.Body className="">
-          {/* <div className=" text-base leading-relaxed   min-h-64">
+          <div className=" text-base leading-relaxed   min-h-64">
             {isLoading ? (
               <Loading />
             ) : (
-              <ul className=" text-semibold rounded-xl text-white bg-blue-500 bg-opacity-85 ">
+              <ul className=" text-semibold rounded-xl text-white bg-gray-800 bg-opacity-85 ">
                 {latestNews &&
                   latestNews.map((news, index) => (
                     <li className="p-2 m-2 " key={index}>
                       {" "}
-                      {news.news}{" "}
+                      <div className="font-semibold text-lg">
+                        {news.headline}
+                      </div>
+                      <div>{news.details}</div>
                     </li>
                   ))}
               </ul>
             )}
-          </div> */}
+          </div>
 
           <div>
-            {chatHistory &&
+            {isFetching ? (
+              <Loading />
+            ) : (
+              chatHistory &&
               chatHistory.map((chat, index) => (
                 <div key={index} className="m-2 p-2  rounded-md">
                   <div className="flex justify-end ">
@@ -115,7 +127,8 @@ export function ChatBotDial() {
                     {chat.response}
                   </div>
                 </div>
-              ))}
+              ))
+            )}
           </div>
         </Modal.Body>
         <Modal.Footer className="flex flex-col">

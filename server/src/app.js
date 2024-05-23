@@ -23,9 +23,11 @@ app.use(cookieParser());
 
 import userRouter from "./routes/user.routes.js";
 import transactionRouter from "./routes/transaction.routes.js";
+import historyRouter from "./routes/history.routes.js";
 
 //routes declaration
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/transactions", transactionRouter);
+app.use("/api/v1/history", historyRouter);
 
 export { app };

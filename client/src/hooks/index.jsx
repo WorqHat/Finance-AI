@@ -28,13 +28,26 @@ export const useLatest = () => {
         response_type: "json",
         stream_data: false,
         preserve_history: true,
-        training_data: `use the response format as: {
-            
-              {
-               //all the objects in the array
-              }
-            
-          }`,
+        training_data: `response format(its just the exampke format ): {
+          "news": [
+            {
+              "headline": "Financial sector regulators in India are increasingly collaborating to address market misconduct",
+              "details": "Financial sector regulators in India are increasingly coming together to address wrongdoings and practices by market participants. This change is attributed to former Sebi chairman Ajay Tyagi, who established an institutional mechanism in 2019 to facilitate sharing of information and data between Sebi and RBI."
+            },
+            {
+              "headline": "L&T Finance Holdings signs $125 million loan with JICA, ADB for rural lending",
+              "details": "L&T Finance Holdings Ltd has signed pact with JICA and Asia Development Bank for $125 million to fund marginal farmers, women entrepreneurs, women borrowers, MSMEs, two-wheeler loans, and provide formal access to credit in rural and semi-urban India, supporting the Indian economy and addressing poverty reduction."
+            },
+            {
+              "headline": "Muthoot FinCorp partners with Veefin to launch supply chain finance operations",
+              "details": "Non-banking finance company Muthoot FinCorp has partnered with Veefin Solutions Ltd to launch supply chain finance operations in India. Muthoot FinCorp will utilize Veefin's technology to manage various aspects of supply chain finance, including onboarding suppliers and vendors, underwriting loans, and managing transactions."
+            },
+            {
+              "headline": "IIFCL proposes classifying space sector as infrastructure",
+              "details": "State-run infrastructure financing firm IIFCL has proposed that the space sector should be classified as part of the infrastructure sector. IIFCL has disbursed around ₹18,000 crore in loans in FY24 and is providing transaction advisory services to India's premier space agency, ISRO."
+            }
+          ]
+        }`,
       }),
     };
 
@@ -44,11 +57,11 @@ export const useLatest = () => {
         options.body,
         { headers: options.headers }
       );
-      console.log("response", response.data.content);
-      const content = JSON.stringify(response.data.content);
+      const content = response.data.content;
+      console.log("content", content);
       const parsedResponse = JSON.parse(content);
-      console.log("parsedResponse", parsedResponse);
-      // setLatestNews(parsedNews);
+      console.log("parsedResponse", parsedResponse.news);
+      setLatestNews(parsedResponse.news);
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
