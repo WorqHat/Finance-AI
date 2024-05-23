@@ -2,7 +2,6 @@ import axios from "axios";
 import { Button, Drawer, Modal } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { server_url } from "../utils/constants";
-import { HistoryDial } from "./HistoryDial";
 
 const HistoryDrawer = () => {
   const [isOpen, setIsOpen] = useState(false);
