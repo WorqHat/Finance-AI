@@ -35,7 +35,7 @@ export function Popup() {
         const response = await axios.post(
           "https://api.worqhat.com/api/ai/v2/pdf-extract",
           formData,
-          options
+          { headers: options }
         );
         console.log(response);
         setResponse(response.data);

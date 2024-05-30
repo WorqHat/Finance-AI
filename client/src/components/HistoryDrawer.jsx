@@ -54,7 +54,7 @@ const HistoryDrawer = () => {
                   className="border-t border-b p-2 m-2 cursor-pointer"
                   onClick={() => handleHistoryClick(item.advice)}
                 >
-                  <div className="text-lg">
+                  <div className="text-lg dark:text-white">
                     {new Date(item.createdAt).toLocaleDateString("en-US", {
                       year: "numeric",
                       month: "long",
@@ -81,22 +81,24 @@ const HistoryDrawer = () => {
                 <p>{selectedHistoryItem.OverallAnalysis}</p>
               </div>
 
-              <div className="mt-8">
+              <div className="mt-8 dark:text-white">
                 <h3 className="text-xl font-semibold mb-4">
                   Advice on Budget:
                 </h3>
-                <p>{selectedHistoryItem.AdviceOnBudget?.NeedsAndWants}</p>
+                <p className="dark:pl-4">
+                  {selectedHistoryItem.AdviceOnBudget?.NeedsAndWants}
+                </p>
 
                 <div className="mt-4">
                   <h4 className="text-lg font-semibold mb-2">
                     Budget Plans Suggestions:
                   </h4>
-                  <ul className="list-disc pl-4 grid grid-cols-2 gap-12">
+                  <ul className="pl-4 grid grid-cols-2 gap-12">
                     {selectedHistoryItem.AdviceOnBudget?.BudgetPlansSuggestions.map(
                       (item, index) => (
                         <li
                           key={index}
-                          className="mb-2 p-3 bg-gray-100 rounded-lg"
+                          className="mb-2 p-3 bg-gray-100 rounded-lg dark:text-black"
                         >
                           <strong>{item.Plan}:</strong> {item.Description}
                         </li>
@@ -107,7 +109,9 @@ const HistoryDrawer = () => {
               </div>
 
               <div className="mt-8">
-                <h3 className="text-xl font-semibold mb-4">Savings Tips:</h3>
+                <h3 className="text-xl font-semibold mb-4 dark:text-white">
+                  Savings Tips:
+                </h3>
 
                 <div className="flex flex-col space-y-4">
                   <div className="bg-gray-100 p-4 rounded-lg">

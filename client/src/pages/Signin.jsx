@@ -50,14 +50,14 @@ const Signin = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2">
         <div className="flex items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
           <div className="xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
-            <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl">
+            <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl dark:text-white">
               Sign in
             </h2>
             <p className="mt-2 text-sm text-gray-600">
               Don&#x27;t have an account?
               <Link
                 to={"/signup"}
-                className="font-semibold text-black transition-all duration-200 hover:underline"
+                className="font-semibold text-black transition-all duration-200 hover:underline dark:text-white"
               >
                 {" "}
                 Create a free account{" "}
@@ -68,7 +68,7 @@ const Signin = () => {
                 <div>
                   <label
                     htmlFor="email"
-                    className="text-base font-medium text-gray-900"
+                    className="text-base font-medium text-gray-900 dark:text-white"
                   >
                     {" "}
                     Email address{" "}
@@ -88,7 +88,7 @@ const Signin = () => {
                   <div className="flex items-center justify-between">
                     <label
                       htmlFor="password"
-                      className="text-base font-medium text-gray-900"
+                      className="text-base font-medium text-gray-900 dark:text-white"
                     >
                       {" "}
                       Password{" "}
@@ -98,8 +98,7 @@ const Signin = () => {
                       title=""
                       className="text-sm font-semibold text-black hover:underline"
                     >
-                      {" "}
-                      Forgot password?{" "}
+                      Forgot password?
                     </a>
                   </div>
                   <div className="mt-2">

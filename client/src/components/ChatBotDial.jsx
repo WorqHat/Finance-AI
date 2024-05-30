@@ -15,6 +15,7 @@ export function ChatBotDial({ latestNews, isLoading }) {
   const [isAttribute, setIsAttribute] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
 
+  console.log(onlineAttribute);
   async function sendChat(chat) {
     console.log("reached");
     setIsFetching(true);
@@ -133,14 +134,17 @@ export function ChatBotDial({ latestNews, isLoading }) {
         </Modal.Body>
         <Modal.Footer className="flex flex-col">
           <div className="flex justify-start w-full ">
-            <label htmlFor="onlineCheckbox" className="m-2">
+            <label class="inline-flex items-center cursor-pointer pb-4 ">
               <input
                 type="checkbox"
-                id="onlineCheckbox"
                 checked={onlineAttribute}
                 onChange={(e) => setOnlineAttribute(e.target.checked)}
-              />{" "}
-              @online
+                className="sr-only peer"
+              />
+              <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none  rounded-full peer dark:bg-gray-500 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+              <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                Toggle me
+              </span>
             </label>
           </div>
           <div style={{ position: "relative" }} className=" w-full flex ">

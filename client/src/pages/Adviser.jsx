@@ -109,22 +109,11 @@ const Adviser = () => {
 
   return (
     <div className="flex justify-between max-h-screen overflow-hidden ">
-      <div className="w-full border  m-4 p-4  flex flex-col justify-between ">
+      <div className="w-full border dark:border-none m-4 p-4  flex flex-col justify-between ">
         <div className="  flex flex-col h-full">
           {/* buttons */}
           <div className="flex justify-between">
-            <button
-              onClick={() => {
-                setIsStatementUpload(false);
-              }}
-              className={`${
-                !isStatementUpload
-                  ? "bg-red-500 text-white"
-                  : "border border-red-500"
-              } px-6 py-2 rounded-md font-semibold`}
-            >
-              Pick from Dashboard
-            </button>
+            <button></button>
             {/* <button
               onClick={() => {
                 setIsStatementUpload(true);
@@ -149,7 +138,9 @@ const Adviser = () => {
                   </div>
                 ) : (
                   <div className="h-80 text-center flex justify-center items-center mt-10 font-semibold text-2xl">
-                    <h1>Get your personalized advice now</h1>
+                    <h1 className="dark:text-white">
+                      Get your personalized advice now
+                    </h1>
                   </div>
                 )}
               </div>
@@ -168,22 +159,22 @@ const Adviser = () => {
                       <p>{OverallAnalysis}</p>
                     </div>
 
-                    <div className="mt-8">
+                    <div className="mt-8 dark:text-white">
                       <h3 className="text-xl font-semibold mb-4">
                         Advice on Budget:
                       </h3>
-                      <p>{AdviceOnBudget?.NeedsAndWants}</p>
+                      <p className="ml-4">{AdviceOnBudget?.NeedsAndWants}</p>
 
                       <div className="mt-4">
-                        <h4 className="text-lg font-semibold mb-2">
+                        <h4 className="text-lg font-semibold mb-2 ">
                           Budget Plans Suggestions:
                         </h4>
-                        <ul className="list-disc pl-4 grid grid-cols-2 gap-12">
+                        <ul className=" pl-4 grid grid-cols-2 gap-12">
                           {AdviceOnBudget?.BudgetPlansSuggestions.map(
                             (item, index) => (
                               <li
                                 key={index}
-                                className="mb-2 p-3 bg-gray-100 rounded-lg"
+                                className="mb-2 p-3 bg-gray-100 rounded-lg dark:text-black"
                               >
                                 <strong>{item.Plan}:</strong> {item.Description}
                               </li>
@@ -194,7 +185,7 @@ const Adviser = () => {
                     </div>
 
                     <div className="mt-8">
-                      <h3 className="text-xl font-semibold mb-4">
+                      <h3 className="text-xl font-semibold mb-4 dark:text-white">
                         Savings Tips:
                       </h3>
 

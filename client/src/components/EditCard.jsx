@@ -95,10 +95,10 @@ export function EditCard({
           })}
         </Modal.Header>
         <Modal.Body className="flex justify-center items-center">
-          <div className="border-l-2 p-4 mb-4 shadow-md  w-2/3 flex flex-col justify-center items-center  ">
+          <div className="border-l-2 dark:border-none p-4 mb-4 shadow-md  w-2/3 flex flex-col justify-center items-center  ">
             <div className="gap-6 flex flex-col py-6">
               <div className="flex justify-center items-center ">
-                <label htmlFor="Amount" className="pr-4">
+                <label htmlFor="Amount" className="pr-4 dark:text-white">
                   Amount
                 </label>
                 <input
@@ -115,7 +115,7 @@ export function EditCard({
 
               <div className="flex justify-center items-center ">
                 {" "}
-                <label htmlFor="Category" className="pr-4">
+                <label htmlFor="Category" className="pr-4 dark:text-white">
                   Category
                 </label>
                 <input
@@ -131,7 +131,7 @@ export function EditCard({
               </div>
 
               <div className="flex justify-center items-center ">
-                <label htmlFor="Description" className="pr-4">
+                <label htmlFor="Description" className="pr-4 dark:text-white">
                   Description
                 </label>
                 <input
@@ -149,7 +149,7 @@ export function EditCard({
 
             <button
               onClick={() => updateTransaction(_id)}
-              className=" border border-blue-500 px-6 py-2 rounded-md  font-semibold"
+              className=" border border-blue-500 px-6 py-2 rounded-md  font-semibold dark:text-white"
             >
               Update
             </button>

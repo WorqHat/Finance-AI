@@ -92,7 +92,7 @@ const AddExpense = () => {
   };
 
   return (
-    <div className="border-l-2 p-4 mb-4 shadow-md   ">
+    <div className="border-l-2 p-4 mb-4 shadow-md  bg-white dark:bg-gray-800 dark:border-none">
       <div className="flex justify-between">
         <button
           onClick={() => {
@@ -100,7 +100,7 @@ const AddExpense = () => {
           }}
           className={`${
             isExpense ? "bg-red-500 text-white" : "border border-red-500"
-          }   px-6 py-2 rounded-md  font-semibold`}
+          }   px-6 py-2 rounded-md  font-semibold dark:text-white`}
         >
           Expense
         </button>
@@ -110,13 +110,13 @@ const AddExpense = () => {
           }}
           className={`${
             !isExpense ? "bg-blue-500 text-white" : "border border-blue-500"
-          }   px-6 py-2 rounded-md  font-semibold`}
+          }   px-6 py-2 rounded-md  font-semibold dark:text-white`}
         >
           Income
         </button>
       </div>
-      <div className="gap-6 flex flex-col py-6">
-        <div className="flex justify-center items-center ">
+      <div className="gap-6 flex flex-col py-6 dark:text-white">
+        <div className="flex justify-end items-center ">
           <label htmlFor="Date" className="pr-4">
             Date
           </label>
@@ -127,11 +127,11 @@ const AddExpense = () => {
             }}
             type="date"
             id="Date"
-            className="border-none "
+            className="border-none rounded-md w-48"
           />
         </div>
 
-        <div className="flex justify-center items-center ">
+        <div className="flex justify-end  items-center ">
           <label htmlFor="Amount" className="pr-4">
             Amount
           </label>
@@ -143,11 +143,11 @@ const AddExpense = () => {
             type="number"
             id="Amount"
             placeholder="00"
-            className="border-b-2"
+            className="border-b-2 rounded-md w-48"
           />
         </div>
 
-        <div className="flex justify-center items-center ">
+        <div className="flex justify-end  items-center ">
           {" "}
           <label htmlFor="Category" className="pr-4">
             Category
@@ -160,11 +160,11 @@ const AddExpense = () => {
             type="text"
             id="Category"
             placeholder="Food, grocery, medical..."
-            className="border-b-2 "
+            className="border-b-2 rounded-md w-48"
           />
         </div>
 
-        <div className="flex justify-center items-center ">
+        <div className="flex justify-end   items-center ">
           <label htmlFor="Description" className="pr-4">
             Description
           </label>
@@ -176,14 +176,14 @@ const AddExpense = () => {
             type="text"
             id="Description"
             placeholder="dosa with friends"
-            className="border-b-2 align-middle"
+            className="border-b-2 align-middle rounded-md w-48"
           />
         </div>
       </div>
 
       <button
         onClick={createTransaction}
-        className=" border border-blue-500 px-6 py-2 rounded-md  font-semibold"
+        className=" border border-blue-500 px-6 py-2 rounded-md  font-semibold dark:text-white dark:hover:bg-blue-500 "
       >
         Save
       </button>
