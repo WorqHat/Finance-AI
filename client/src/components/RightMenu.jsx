@@ -17,13 +17,6 @@ const RightMenu = () => {
       </div>
       <div className="fixed right-0 bottom-9 m-4 flex">
         {" "}
-        {/* <button
-          className="m-4 p-3 bg-blue-500 rounded-md"
-          onClick={() => setOpenAddExpense(true)}
-        >
-          {" "}
-          <Plus className="text-white" />
-        </button>{" "} */}
         <div className="hidden max-md:block">
           {" "}
           <AddExpenseModel />

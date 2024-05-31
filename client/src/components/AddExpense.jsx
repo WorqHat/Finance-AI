@@ -92,7 +92,7 @@ const AddExpense = () => {
   };
 
   return (
-    <div className="border-l-2 p-4 mb-4 shadow-md  bg-white dark:bg-gray-800 dark:border-none">
+    <div className="border-l-2 p-4 mb-4 shadow-md  bg-white dark:bg-gray-800  dark:border-none">
       <div className="flex justify-between">
         <button
           onClick={() => {
@@ -127,7 +127,7 @@ const AddExpense = () => {
             }}
             type="date"
             id="Date"
-            className="border-none rounded-md w-48"
+            className="border-none rounded-md w-48 dark:text-black dark:bg-gray-300"
           />
         </div>
 
@@ -143,7 +143,7 @@ const AddExpense = () => {
             type="number"
             id="Amount"
             placeholder="00"
-            className="border-b-2 rounded-md w-48"
+            className="border-b-2 rounded-md w-48 dark:text-black dark:bg-gray-300"
           />
         </div>
 
@@ -160,7 +160,7 @@ const AddExpense = () => {
             type="text"
             id="Category"
             placeholder="Food, grocery, medical..."
-            className="border-b-2 rounded-md w-48"
+            className="border-b-2 rounded-md w-48 dark:bg-gray-300"
           />
         </div>
 
@@ -176,7 +176,7 @@ const AddExpense = () => {
             type="text"
             id="Description"
             placeholder="dosa with friends"
-            className="border-b-2 align-middle rounded-md w-48"
+            className="border-b-2 align-middle rounded-md w-48 dark:bg-gray-300"
           />
         </div>
       </div>

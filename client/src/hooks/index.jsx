@@ -28,7 +28,7 @@ export const useLatest = () => {
         response_type: "json",
         stream_data: false,
         preserve_history: true,
-        training_data: `response format(its just the exampke format ): {
+        training_data: `response format(its just the exampke format, do not include any starter lines like "based on the contet provided... na ddo not use the contents given below as training only use the format as its given " ): {
           "news": [
             {
               "headline": "Financial sector regulators in India are increasingly collaborating to address market misconduct",

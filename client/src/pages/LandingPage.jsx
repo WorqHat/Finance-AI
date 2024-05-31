@@ -9,10 +9,10 @@ const LandingPage = () => {
     <section class="py-10">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="mx-auto w-full text-center md:max-w-2xl">
-          <h2 class="text-3xl font-bold leading-tight text-black sm:text-4xl lg:text-5xl">
+          <h2 class="text-3xl font-bold leading-tight text-black sm:text-4xl lg:text-5xl dark:text-white">
             Get Your finances together Today!
           </h2>
-          <p class="mx-auto mt-4 max-w-xl text-base leading-relaxed text-gray-600">
+          <p class="mx-auto mt-4 max-w-xl text-base leading-relaxed text-gray-600 dark:text-gray-300">
             With the capabilities of AI we can help you manage your finances in
             a personalized way.
           </p>
@@ -48,7 +48,7 @@ const LandingPage = () => {
             <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
             <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
           </svg>
-          <span class="ml-2 text-sm text-gray-600">
+          <span class="ml-2 text-sm text-gray-600 dark:text-gray-300">
             Your data is complely secured with us. We don&#x27;t share with
             anyone.
           </span>

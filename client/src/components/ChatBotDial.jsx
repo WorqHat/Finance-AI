@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Button, Modal, Textarea, Tooltip } from "flowbite-react";
 import { MessageSquareCode, SendHorizonal } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Loading } from "./Loading";
 import { useLatest } from "../hooks/index";
 import { worqhat_url } from "../utils/constants";
@@ -14,6 +14,15 @@ export function ChatBotDial({ latestNews, isLoading }) {
   const [onlineAttribute, setOnlineAttribute] = useState(false);
   const [isAttribute, setIsAttribute] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
+
+  const chatContainerRef = useRef(null);
+
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop =
+        chatContainerRef.current.scrollHeight;
+    }
+  }, [chatHistory]);
 
   console.log(onlineAttribute);
   async function sendChat(chat) {
@@ -34,9 +43,6 @@ export function ChatBotDial({ latestNews, isLoading }) {
         randomness: 0.5,
         preserve_history: true,
         training_data: [
-          // "LatestNews: " + JSON.stringify(latestNews),
-          // "UserChat: " + chat,
-          // "Previous chat: " + chatHistory,
           ` {
             response: {
           }
@@ -92,7 +98,7 @@ export function ChatBotDial({ latestNews, isLoading }) {
       </Tooltip>
       <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>
         <Modal.Header>ChatBot</Modal.Header>
-        <Modal.Body className="">
+        <Modal.Body ref={chatContainerRef} className="">
           <div className=" text-base leading-relaxed   min-h-64">
             {isLoading ? (
               <Loading />
@@ -112,7 +118,7 @@ export function ChatBotDial({ latestNews, isLoading }) {
             )}
           </div>
 
-          <div>
+          <div ref={chatContainerRef} className="overflow-y-auto">
             {isFetching ? (
               <Loading />
             ) : (
@@ -143,7 +149,7 @@ export function ChatBotDial({ latestNews, isLoading }) {
               />
               <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none  rounded-full peer dark:bg-gray-500 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
               <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">
-                Toggle me
+                @online
               </span>
             </label>
           </div>

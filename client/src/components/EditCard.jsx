@@ -94,8 +94,8 @@ export function EditCard({
             day: "numeric",
           })}
         </Modal.Header>
-        <Modal.Body className="flex justify-center items-center">
-          <div className="border-l-2 dark:border-none p-4 mb-4 shadow-md  w-2/3 flex flex-col justify-center items-center  ">
+        <Modal.Body className="flex justify-center items-center ">
+          <div className="border-l-2 dark:border-none p-4 mb-4 shadow-md  w-2/3 flex flex-col justify-center items-center  dark:bg-gray-800 ">
             <div className="gap-6 flex flex-col py-6">
               <div className="flex justify-center items-center ">
                 <label htmlFor="Amount" className="pr-4 dark:text-white">
