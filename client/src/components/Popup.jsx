@@ -1,6 +1,8 @@
 import axios from "axios";
 import { Button, Modal, FileInput, Label } from "flowbite-react";
 import { useState } from "react";
+import * as pdfjsLib from "pdfjs-dist";
+pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/4.3.136/pdf.worker.min.js`;
 
 export function Popup() {
   const [openModal, setOpenModal] = useState(false);
@@ -9,6 +11,8 @@ export function Popup() {
   const [response, setResponse] = useState(null);
   const [error, setError] = useState(null);
 
+  const [pdfText, setPdfText] = useState("");
+
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -16,36 +20,61 @@ export function Popup() {
     }
   };
 
-  const handleUpload = async () => {
-    if (selectedFile) {
-      const formData = new FormData();
-      formData.append("file", selectedFile);
+  const extractText = async () => {
+    if (!selectedFile) return null;
 
-      const options = {
-        headers: {
-          Authorization:
-            "Bearer " + import.meta.env.VITE_REACT_APP_WORQHAT_API_KEY,
-          "Content-Type": "multipart/form-data",
-        },
-      };
+    const reader = new FileReader();
+    reader.onload = async function () {
+      const typedarray = new Uint8Array(this.result);
 
-      setUploading(true);
+      const pdf = await pdfjsLib.getDocument(typedarray).promise;
+      let text = "";
 
-      try {
-        const response = await axios.post(
-          "https://api.worqhat.com/api/ai/v2/pdf-extract",
-          formData,
-          { headers: options }
-        );
-        console.log(response);
-        setResponse(response.data);
-        setUploading(false);
-      } catch (err) {
-        setError(err.message);
-        setUploading(false);
+      for (let i = 1; i <= pdf.numPages; i++) {
+        const page = await pdf.getPage(i);
+        const content = await page.getTextContent();
+        const strings = content.items.map((item) => item.str);
+        text += strings.join(" ") + " ";
       }
-    }
+
+      setPdfText(text);
+    };
+
+    reader.readAsArrayBuffer(selectedFile);
   };
+
+  console.log("pdf text", pdfText);
+
+  // const handleUpload = async () => {
+  //   if (selectedFile) {
+  //     const formData = new FormData();
+  //     formData.append("file", selectedFile);
+
+  //     const options = {
+  //       headers: {
+  //         Authorization:
+  //           "Bearer " + import.meta.env.VITE_REACT_APP_WORQHAT_API_KEY,
+  //         "Content-Type": "multipart/form-data",
+  //       },
+  //     };
+
+  //     setUploading(true);
+
+  //     try {
+  //       const response = await axios.post(
+  //         "https://api.worqhat.com/api/ai/v2/pdf-extract",
+  //         formData,
+  //         { headers: options }
+  //       );
+  //       console.log(response);
+  //       setResponse(response.data);
+  //       setUploading(false);
+  //     } catch (err) {
+  //       setError(err.message);
+  //       setUploading(false);
+  //     }
+  //   }
+  // };
 
   return (
     <div className="mx-4">
@@ -65,7 +94,7 @@ export function Popup() {
               </div>
               <div className="flex justify-end">
                 <button
-                  onClick={handleUpload}
+                  onClick={extractText}
                   disabled={!selectedFile || uploading}
                   className="bg-gray-800 text-white px-6 py-2 rounded-md font-semibold hover:bg-gray-700 ml-auto "
                 >
