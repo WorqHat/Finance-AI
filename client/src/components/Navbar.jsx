@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
 import { DropdownMenu } from "./DropdownMenu";
 import { SideMenuDrawer } from "./SideMenuDrawer";
@@ -14,10 +14,12 @@ const Navbar = () => {
   const handleLogoutClick = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/v1/users/logout"
+        "http://localhost:8000/api/v1/users/logout",
+        { withCredentials: true }
       );
       console.log(response);
       dispatch(logout());
+      Navigate("/");
     } catch (error) {
       setError("error while logging out", error.message);
       setTimeout(() => {
