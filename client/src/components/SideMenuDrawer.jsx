@@ -11,7 +11,7 @@ export function SideMenuDrawer() {
   const handleClose = () => setIsOpen(false);
 
   return (
-    <div className="">
+    <div className="z-50 ">
       <div className="flex  items-center justify-center ">
         <button onClick={() => setIsOpen(true)}>
           <div class="lg:hidden">

@@ -10,9 +10,6 @@ const Dashboard = () => {
   return (
     <div className="m-4 flex justify-between gap-8 rounded-md ">
       <div className="flex flex-col w-full h-max m-5 gap-8">
-        {/* {fetchedExpenses.map((expense) => {
-          <ExpenseCard key={expense._id} transaction={expense} />;
-        })} */}
         <ExpenseTable />
       </div>
       <div className="w-1/2">

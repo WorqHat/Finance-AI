@@ -48,24 +48,27 @@ const HistoryDrawer = () => {
         <Drawer.Items>
           <div className="grid  gap-4 ">
             {history &&
-              history.map((item, index) => (
-                <div
-                  key={index}
-                  className="border-t border-b p-2 m-2 cursor-pointer"
-                  onClick={() => handleHistoryClick(item.advice)}
-                >
-                  <div className="text-lg dark:text-white">
-                    {new Date(item.createdAt).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
+              history
+                .slice()
+                .reverse()
+                .map((item, index) => (
+                  <div
+                    key={index}
+                    className="border-t border-b p-2 m-2 cursor-pointer"
+                    onClick={() => handleHistoryClick(item.advice)}
+                  >
+                    <div className="text-lg dark:text-white">
+                      {new Date(item.createdAt).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}
+                    </div>
+                    <div className="text-gray-400 ">
+                      {item.advice.OverallAnalysis.slice(40, 150) + "..."}
+                    </div>
                   </div>
-                  <div className="text-gray-400 ">
-                    {item.advice.OverallAnalysis.slice(40, 150) + "..."}
-                  </div>
-                </div>
-              ))}
+                ))}
           </div>
         </Drawer.Items>
       </Drawer>

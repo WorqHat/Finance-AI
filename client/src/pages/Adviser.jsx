@@ -114,18 +114,7 @@ const Adviser = () => {
           {/* buttons */}
           <div className="flex justify-between">
             <button></button>
-            {/* <button
-              onClick={() => {
-                setIsStatementUpload(true);
-              }}
-              className={`${
-                isStatementUpload
-                  ? "bg-blue-500 text-white"
-                  : "border border-blue-500"
-              } px-6 py-2 rounded-md font-semibold`}
-            >
-              Upload Statement
-            </button> */}
+
             <Popup />
           </div>
           {/* contentarea */}
