@@ -9,11 +9,13 @@ import { worqhat_url } from "../utils/constants";
 export function ChatBotDial({ latestNews, isLoading }) {
   console.log("latestNews", latestNews);
   const [openModal, setOpenModal] = useState(false);
-  const [chat, setChat] = useState("");
+  const [userMessage, setUserMessage] = useState("");
   const [chatHistory, setChatHistory] = useState([]);
   const [onlineAttribute, setOnlineAttribute] = useState(false);
   const [isAttribute, setIsAttribute] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
+  const [userMessages, setUserMessages] = useState([]);
+  const [userResponses, setUserResponses] = useState([]);
 
   const chatContainerRef = useRef(null);
 
@@ -25,11 +27,12 @@ export function ChatBotDial({ latestNews, isLoading }) {
   }, [chatHistory]);
 
   console.log(onlineAttribute);
+
   async function sendChat(chat) {
     console.log("reached");
     setIsFetching(true);
 
-    const query = (onlineAttribute ? "@online " : "") + chat.trim();
+    const query = (onlineAttribute ? "" : "") + chat.trim();
 
     const options = {
       method: "POST",
@@ -42,15 +45,12 @@ export function ChatBotDial({ latestNews, isLoading }) {
         question: query,
         randomness: 0.5,
         preserve_history: true,
-        training_data: [
-          ` {
-            response: {
-          }
-        }`,
+        training_data: `
+           use this structure to send response: { "response": { text: "response text"}},
           "give short answers",
-          chatHistory,
-          latestNews,
-        ],
+          chatHistory: ${JSON.stringify(chatHistory)},
+          latestNews: ${JSON.stringify(latestNews)},
+        `,
 
         response_type: "text",
       }),
@@ -65,21 +65,39 @@ export function ChatBotDial({ latestNews, isLoading }) {
         headers: options.headers,
       });
       const content = response.data.content;
-      console.log("response", response);
+      console.log("response", content);
+      const parsedResponse = JSON.parse(content);
+      console.log("parsedResponse", parsedResponse.response.text);
 
       setChatHistory([
         ...chatHistory,
         {
           chat: chat,
-          response: content,
+          response: parsedResponse.response.text,
         },
       ]);
+
+      parsedResponse.response.text
+        ? setUserResponses([...userResponses, parsedResponse.response.text])
+        : setUserResponses([
+            ...userResponses,
+            "Looke like somethings broken in me:)",
+          ]);
+
       setIsFetching(false);
     } catch (error) {
       console.log("error while chatting", error);
     }
   }
 
+  async function handleChat(userMessage, userResponse) {
+    setIsFetching(true);
+
+    setUserMessages([...userMessages, userMessage]);
+    setUserResponses([...userResponses, userResponse]);
+  }
+
+  console.log("userMessages", userMessages, "userResponses", userResponses);
   return (
     <>
       <Tooltip
@@ -157,17 +175,18 @@ export function ChatBotDial({ latestNews, isLoading }) {
             <Textarea
               id="comment"
               placeholder={"chat here"}
-              value={chat}
+              value={userMessage}
               required
               rows={3}
               className=""
-              onChange={(e) => setChat(e.target.value)}
+              onChange={(e) => setUserMessage(e.target.value)}
             />
             <button
               className="bg-blue-500 flex items-center text-center p-3  text-white rounded-md h-10 w-10 cursor-pointer"
               onClick={() => {
-                sendChat(chat);
-                setChat("");
+                sendChat(userMessage);
+                setUserMessage("");
+                setUserMessages([...userMessages, userMessage]);
               }}
               style={{
                 position: "absolute",
