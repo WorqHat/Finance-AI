@@ -8,6 +8,7 @@ import { Loading } from "../components/Loading";
 import { Popup } from "../components/Popup";
 import Shimmer from "../components/Shimmer";
 import { server_url } from "../utils/constants";
+import AdviserGreeting from "../components/AdviserGreeting";
 
 const Adviser = () => {
   const [isStatementUpload, setIsStatementUpload] = useState(false);
@@ -126,11 +127,7 @@ const Adviser = () => {
                     <Shimmer />
                   </div>
                 ) : (
-                  <div className="h-80 text-center flex justify-center items-center mt-10 font-semibold text-2xl">
-                    <h1 className="dark:text-white">
-                      Get your personalized advice now
-                    </h1>
-                  </div>
+                  <AdviserGreeting />
                 )}
               </div>
             ) : (

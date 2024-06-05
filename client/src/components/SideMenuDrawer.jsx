@@ -38,7 +38,7 @@ export function SideMenuDrawer() {
         <Drawer.Header title="MENU" titleIcon={() => <></>} />
         <ul className="px-4 gap-2 text-lg  py-4">
           <Link to="/dashboard">
-            <li className="p-3 hover:shadow-sm hover:bg-gray-200 rounded-xl cursor-pointer flex items-center gap-2">
+            <li className="p-3 hover:shadow-sm hover:bg-gray-200 rounded-xl cursor-pointer flex items-center gap-2 dark:text-white">
               <button onClick={() => setIsOpen(false)}>
                 {dashboardIcon}
                 Dashboard
@@ -47,7 +47,7 @@ export function SideMenuDrawer() {
           </Link>
 
           <Link to="/adviser">
-            <li className="p-3 hover:shadow-sm hover:bg-gray-200 rounded-xl cursor-pointer flex items-center gap-2">
+            <li className="p-3 hover:shadow-sm hover:bg-gray-200 rounded-xl cursor-pointer flex items-center gap-2 dark: text-white">
               <button onClick={() => setIsOpen(false)}>
                 {adviserIcon}
                 Adviser

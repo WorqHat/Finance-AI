@@ -45,6 +45,8 @@ export function ExpenseTable() {
           <Table.HeadCell>Category</Table.HeadCell>
           <Table.HeadCell>Description</Table.HeadCell>
           <Table.HeadCell>Amount</Table.HeadCell>
+          <Table.HeadCell>Actions</Table.HeadCell>
+
           <Table.HeadCell>
             <span className="sr-only">Edit</span>
           </Table.HeadCell>

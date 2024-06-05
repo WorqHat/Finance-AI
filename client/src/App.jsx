@@ -7,7 +7,6 @@ import { useLatest } from "./hooks";
 
 function App() {
   const loggedIn = useSelector((store) => store.auth.status);
-  console.log(loggedIn);
 
   return (
     <div className="flex flex-col h-screen overflow-hidden dark:bg-gray-800">

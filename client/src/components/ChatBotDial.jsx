@@ -1,13 +1,14 @@
 import axios from "axios";
 import { Button, Modal, Textarea, Tooltip } from "flowbite-react";
-import { MessageSquareCode, SendHorizonal } from "lucide-react";
+import { Dot, MessageSquareCode, SendHorizonal } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Loading } from "./Loading";
 import { useLatest } from "../hooks/index";
 import { worqhat_url } from "../utils/constants";
+import Shimmer from "./Shimmer";
+import { useSelector } from "react-redux";
 
 export function ChatBotDial({ latestNews, isLoading }) {
-  console.log("latestNews", latestNews);
   const [openModal, setOpenModal] = useState(false);
   const [userMessage, setUserMessage] = useState("");
   const [chatHistory, setChatHistory] = useState([]);
@@ -19,17 +20,24 @@ export function ChatBotDial({ latestNews, isLoading }) {
 
   const chatContainerRef = useRef(null);
 
-  useEffect(() => {
-    if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop =
-        chatContainerRef.current.scrollHeight;
-    }
-  }, [chatHistory]);
+  const userTransactions = useSelector(
+    (store) => store.transaction.allTransactions
+  );
 
-  console.log(onlineAttribute);
+  const role = "Role: Act as a finance bot.";
+  const Task = "Task: Chat with the user about about his finances.";
+  const fromat = `Format: the response format should be not confusing and consistent. it should start with "{" and end with "}". it should follow the structure as: { <"response">: { <"text">: "response text"}}. the response text must not contain any unescaped control characters such as newline, tabs, it must be a single long string. it shouldnt have any Bad control character in string literal. No bullet points in response text. Response text must be a single long string.`;
+  const train = `Training Data:  "latest in finance: ${latestNews}, userTransactions: ${userTransactions}, "conversation_history": ${chatHistory}"`;
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [userMessages, userResponses]);
+
+  const scrollToBottom = () => {
+    chatContainerRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   async function sendChat(chat) {
-    console.log("reached");
     setIsFetching(true);
 
     const query = (onlineAttribute ? "" : "") + chat.trim();
@@ -45,13 +53,7 @@ export function ChatBotDial({ latestNews, isLoading }) {
         question: query,
         randomness: 0.5,
         preserve_history: true,
-        training_data: `
-           use this structure to send response: { "response": { text: "response text"}},
-          "give short answers",
-          chatHistory: ${JSON.stringify(chatHistory)},
-          latestNews: ${JSON.stringify(latestNews)},
-        `,
-
+        training_data: `${role}, ${Task}, ${fromat}, ${train}`,
         response_type: "text",
       }),
     };
@@ -64,10 +66,11 @@ export function ChatBotDial({ latestNews, isLoading }) {
       const response = await axios.post(url, options.body, {
         headers: options.headers,
       });
+
       const content = response.data.content;
       console.log("response", content);
       const parsedResponse = JSON.parse(content);
-      console.log("parsedResponse", parsedResponse.response.text);
+      console.log("parsedResponse", parsedResponse);
 
       setChatHistory([
         ...chatHistory,
@@ -77,27 +80,30 @@ export function ChatBotDial({ latestNews, isLoading }) {
         },
       ]);
 
-      parsedResponse.response.text
-        ? setUserResponses([...userResponses, parsedResponse.response.text])
-        : setUserResponses([
-            ...userResponses,
-            "Looke like somethings broken in me:)",
-          ]);
-
-      setIsFetching(false);
+      setUserResponses((prevResponses) => [
+        ...prevResponses,
+        parsedResponse.response.text || "Oops!! Try again after sometiem...",
+      ]);
     } catch (error) {
       console.log("error while chatting", error);
+      setUserResponses((prevResponses) => [
+        ...prevResponses,
+        "Oops!! Try again after sometiem...",
+      ]);
+    } finally {
+      setIsFetching(false);
     }
   }
 
-  async function handleChat(userMessage, userResponse) {
-    setIsFetching(true);
+  const handleSendChat = () => {
+    const message = userMessage.trim();
+    if (message) {
+      sendChat(message);
+      setUserMessage("");
+      setUserMessages((prevMessages) => [...prevMessages, message]);
+    }
+  };
 
-    setUserMessages([...userMessages, userMessage]);
-    setUserResponses([...userResponses, userResponse]);
-  }
-
-  console.log("userMessages", userMessages, "userResponses", userResponses);
   return (
     <>
       <Tooltip
@@ -116,13 +122,16 @@ export function ChatBotDial({ latestNews, isLoading }) {
       </Tooltip>
       <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>
         <Modal.Header>ChatBot</Modal.Header>
-        <Modal.Body ref={chatContainerRef} className="">
+        <Modal.Body className="overflow-y-auto ">
           <div className=" text-base leading-relaxed   min-h-64">
             {isLoading ? (
-              <Loading />
+              <div className="p-4 bg-gray-100 animate-bounce rounded-2xl">
+                {" "}
+                <div className="animate-pulse"> Loading Latest news... </div>
+              </div>
             ) : (
               <ul className=" text-semibold rounded-xl text-white bg-gray-800 bg-opacity-85 ">
-                {latestNews &&
+                {latestNews ? (
                   latestNews.map((news, index) => (
                     <li className="p-2 m-2 " key={index}>
                       {" "}
@@ -131,29 +140,45 @@ export function ChatBotDial({ latestNews, isLoading }) {
                       </div>
                       <div>{news.details}</div>
                     </li>
-                  ))}
+                  ))
+                ) : (
+                  <div className="p-4 bg-gray-100 animate-bounce rounded-2xl text-black">
+                    {" "}
+                    <div className="animate-pulse">
+                      {" "}
+                      Loading Latest news...{" "}
+                    </div>
+                  </div>
+                )}
               </ul>
             )}
           </div>
 
-          <div ref={chatContainerRef} className="overflow-y-auto">
-            {isFetching ? (
-              <Loading />
-            ) : (
-              chatHistory &&
-              chatHistory.map((chat, index) => (
-                <div key={index} className="m-2 p-2  rounded-md">
-                  <div className="flex justify-end ">
-                    <div className="bg-gray-800 text-white rounded-2xl my-4 mx-1 py-2  px-4 text-right">
-                      {chat.chat}
-                    </div>
-                  </div>
-                  <div className="bg-gray-100 rounded-2xl my-4 mx-1 w-1/2 p-2 text-left">
-                    {chat.response}
+          <div className="overflow-y-auto">
+            {userMessages.map((msg, index) => (
+              <div key={index} className="m-2 p-2 rounded-md">
+                <div className="flex justify-end">
+                  <div className="bg-gray-800 text-white rounded-2xl my-4 mx-1 py-2 px-4 text-right">
+                    {msg}
                   </div>
                 </div>
-              ))
-            )}
+
+                {userResponses[index] ? (
+                  <div className="bg-gray-100 rounded-2xl my-4 mx-1 w-2/3 p-2 text-left">
+                    {userResponses[index]}
+                  </div>
+                ) : (
+                  <div className="bg-gray-100 rounded-2xl my-4 mx-1 w-1/3 p-2 flex justify-start animate-pulse">
+                    {" "}
+                    <Dot className="text-gray-500 text-3xl animate-ping" />
+                    <Dot className="text-gray-500 text-3xl animate-ping" />
+                    <Dot className="text-gray-500 text-3xl animate-ping" />
+                  </div>
+                )}
+              </div>
+            ))}
+
+            <div ref={chatContainerRef} />
           </div>
         </Modal.Body>
         <Modal.Footer className="flex flex-col">
@@ -183,11 +208,7 @@ export function ChatBotDial({ latestNews, isLoading }) {
             />
             <button
               className="bg-blue-500 flex items-center text-center p-3  text-white rounded-md h-10 w-10 cursor-pointer"
-              onClick={() => {
-                sendChat(userMessage);
-                setUserMessage("");
-                setUserMessages([...userMessages, userMessage]);
-              }}
+              onClick={handleSendChat}
               style={{
                 position: "absolute",
                 right: "10px",
