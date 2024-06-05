@@ -38,7 +38,7 @@ export function ExpenseTable() {
   };
 
   return (
-    <div className="overflow-x-auto  ">
+    <div className="overflow-x-auto relative ">
       <Table hoverable>
         <Table.Head>
           <Table.HeadCell>Date</Table.HeadCell>

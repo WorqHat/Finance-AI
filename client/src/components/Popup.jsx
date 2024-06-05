@@ -133,7 +133,7 @@ export function Popup() {
 
   const { OverallAnalysis, AdviceOnBudget, SavingsTips } = advice || {};
   return (
-    <div className="mx-4">
+    <div className="mx-4 ">
       <Button onClick={() => setOpenModal(true)}>Upload statement </Button>
       <Modal show={openModal} onClose={() => setOpenModal(false)}>
         <Modal.Header>Uploader</Modal.Header>

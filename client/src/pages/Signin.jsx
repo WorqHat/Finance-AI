@@ -93,13 +93,6 @@ const Signin = () => {
                       {" "}
                       Password{" "}
                     </label>
-                    <a
-                      href="#"
-                      title=""
-                      className="text-sm font-semibold text-black hover:underline dark:text-white"
-                    >
-                      Forgot password?
-                    </a>
                   </div>
                   <div className="mt-2">
                     <input

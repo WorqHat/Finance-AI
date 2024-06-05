@@ -1,5 +1,5 @@
 import { Label, Textarea } from "flowbite-react";
-import { SendHorizonal } from "lucide-react";
+import { ChevronRight, SendHorizonal } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import AdviserMenu from "../components/AdviserMenu";
 import { useSelector } from "react-redux";
@@ -9,6 +9,7 @@ import { Popup } from "../components/Popup";
 import Shimmer from "../components/Shimmer";
 import { server_url } from "../utils/constants";
 import AdviserGreeting from "../components/AdviserGreeting";
+import { AdviserMenuDrawer } from "../components/AdviserMenuDrawer";
 
 const Adviser = () => {
   const [isStatementUpload, setIsStatementUpload] = useState(false);
@@ -110,7 +111,7 @@ const Adviser = () => {
 
   return (
     <div className="flex justify-between max-h-screen overflow-hidden ">
-      <div className="w-full border dark:border-none m-4 p-4  flex flex-col justify-between ">
+      <div className="w-full border dark:border-none m-4 p-4  flex flex-col justify-between max-md:w-screen ">
         <div className="  flex flex-col h-full">
           {/* buttons */}
           <div className="flex justify-between">
@@ -227,8 +228,11 @@ const Adviser = () => {
         </div>
       </div>
 
-      <div className="m-4 p-4 w-1/3 border">
+      <div className="m-4 p-4 w-1/3 border max-md:hidden">
         <AdviserMenu />
+      </div>
+      <div>
+        <AdviserMenuDrawer />
       </div>
     </div>
   );

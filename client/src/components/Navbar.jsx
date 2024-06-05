@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
-import { DropdownMenu } from "./DropdownMenu";
 import { SideMenuDrawer } from "./SideMenuDrawer";
 import ToggleTheme from "./ToggleTheme";
 
@@ -18,8 +17,8 @@ const Navbar = () => {
         { withCredentials: true }
       );
       console.log(response);
-      dispatch(logout());
       Navigate("/");
+      dispatch(logout());
     } catch (error) {
       setError("error while logging out", error.message);
       setTimeout(() => {
@@ -73,7 +72,6 @@ const Navbar = () => {
         )}
 
         <SideMenuDrawer />
-        {/* <DropdownMenu /> */}
       </div>
     </div>
   );

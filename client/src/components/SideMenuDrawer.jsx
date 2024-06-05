@@ -1,9 +1,6 @@
 import { Button, Drawer, Sidebar, TextInput } from "flowbite-react";
 import { useState } from "react";
-
-import Sidemenu from "./Sidemenu";
 import { Link } from "react-router-dom";
-import { adviserIcon, dashboardIcon } from "../utils/svg";
 
 export function SideMenuDrawer() {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,24 +31,23 @@ export function SideMenuDrawer() {
           </div>
         </button>
       </div>
-      <Drawer open={isOpen} onClose={handleClose} position="right">
+      <Drawer
+        open={isOpen}
+        onClose={handleClose}
+        position="right"
+        className="z-50 bg-gray-900"
+      >
         <Drawer.Header title="MENU" titleIcon={() => <></>} />
-        <ul className="px-4 gap-2 text-lg  py-4">
+        <ul className="px-4 gap-2 ">
           <Link to="/dashboard">
-            <li className="p-3 hover:shadow-sm hover:bg-gray-200 rounded-xl cursor-pointer flex items-center gap-2 dark:text-white">
-              <button onClick={() => setIsOpen(false)}>
-                {dashboardIcon}
-                Dashboard
-              </button>
+            <li className="p-2 m-1 hover:shadow-sm hover:bg-gray-200 rounded-xl cursor-pointer flex items-center  dark:text-white">
+              <button onClick={() => setIsOpen(false)}>Dashboard</button>
             </li>
           </Link>
 
           <Link to="/adviser">
-            <li className="p-3 hover:shadow-sm hover:bg-gray-200 rounded-xl cursor-pointer flex items-center gap-2 dark: text-white">
-              <button onClick={() => setIsOpen(false)}>
-                {adviserIcon}
-                Adviser
-              </button>
+            <li className="p-2 m-1 hover:shadow-sm hover:bg-gray-200 rounded-xl cursor-pointer flex items-center dark: text-white">
+              <button onClick={() => setIsOpen(false)}>Adviser</button>
             </li>
           </Link>
         </ul>{" "}

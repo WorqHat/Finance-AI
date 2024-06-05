@@ -15,9 +15,9 @@ const RightMenu = () => {
       <div className={`fixed  right-4 hidden md:block`}>
         <AddExpense />
       </div>
-      <div className="fixed right-0 bottom-9 m-4 flex">
+      <div className="fixed right-0 bottom-9 mx-4 flex">
         {" "}
-        <div className="hidden max-md:block">
+        <div className="hidden max-md:block ">
           {" "}
           <AddExpenseModel />
         </div>

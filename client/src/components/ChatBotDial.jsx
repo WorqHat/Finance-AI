@@ -1,6 +1,11 @@
 import axios from "axios";
 import { Button, Modal, Textarea, Tooltip } from "flowbite-react";
-import { Dot, MessageSquareCode, SendHorizonal } from "lucide-react";
+import {
+  BotMessageSquare,
+  Dot,
+  MessageSquareCode,
+  SendHorizonal,
+} from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Loading } from "./Loading";
 import { useLatest } from "../hooks/index";
@@ -113,11 +118,11 @@ export function ChatBotDial({ latestNews, isLoading }) {
         style="light"
       >
         <button
-          className="m-4 p-3 bg-blue-500 rounded-md"
+          className="max-md:m-4 mx-4 p-3 bg-blue-500 rounded-md"
           onClick={() => setOpenModal(true)}
         >
           {" "}
-          <MessageSquareCode className="text-white " />
+          <BotMessageSquare className="text-white " />
         </button>{" "}
       </Tooltip>
       <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>
