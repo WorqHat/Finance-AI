@@ -99,7 +99,9 @@ const AddExpense = () => {
             setIsExpense(true);
           }}
           className={`${
-            isExpense ? "bg-red-500 text-white" : "border border-red-500"
+            isExpense
+              ? "bg-red-500 dark:bg-red-800 dark:bg-opacity-70 text-white"
+              : "border border-red-500"
           }   px-6 py-2 rounded-md  font-semibold dark:text-white`}
         >
           Expense
@@ -109,7 +111,9 @@ const AddExpense = () => {
             setIsExpense(false);
           }}
           className={`${
-            !isExpense ? "bg-blue-500 text-white" : "border border-blue-500"
+            !isExpense
+              ? "bg-blue-500 dark:bg-blue-800 dark:bg-opacity-70 text-white"
+              : "border border-blue-500"
           }   px-6 py-2 rounded-md  font-semibold dark:text-white`}
         >
           Income
@@ -127,7 +131,7 @@ const AddExpense = () => {
             }}
             type="date"
             id="Date"
-            className="border-none rounded-md w-48 dark:text-black dark:bg-gray-300"
+            className=" rounded-md w-48  dark:bg-gray-800 dark:border-gray-200 border-b-2 "
           />
         </div>
 
@@ -143,7 +147,7 @@ const AddExpense = () => {
             type="number"
             id="Amount"
             placeholder="00"
-            className="border-b-2 rounded-md w-48 dark:text-black dark:bg-gray-300"
+            className="border-b-2 rounded-md w-48  dark:bg-gray-800 dark:border-gray-200"
           />
         </div>
 
@@ -160,7 +164,7 @@ const AddExpense = () => {
             type="text"
             id="Category"
             placeholder="Food, grocery, medical..."
-            className="border-b-2 rounded-md w-48 dark:bg-gray-300"
+            className="border-b-2 rounded-md w-48 dark:bg-gray-800 dark:border-gray-200"
           />
         </div>
 
@@ -176,14 +180,14 @@ const AddExpense = () => {
             type="text"
             id="Description"
             placeholder="dosa with friends"
-            className="border-b-2 align-middle rounded-md w-48 dark:bg-gray-300"
+            className="border-b-2 align-middle rounded-md w-48 dark:bg-gray-800 dark:border-gray-200"
           />
         </div>
       </div>
 
       <button
         onClick={createTransaction}
-        className=" border border-blue-500 px-6 py-2 rounded-md  font-semibold dark:text-white dark:hover:bg-blue-500 "
+        className=" border border-blue-500 px-6 py-2 rounded-md  font-semibold dark:text-white dark:hover:bg-blue-800 "
       >
         Save
       </button>

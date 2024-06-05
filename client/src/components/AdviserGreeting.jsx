@@ -13,7 +13,7 @@ function ServicesChips() {
       {services.map((service, index) => (
         <div
           key={index}
-          className="bg-gradient-to-r from-cyan-600 to-teal-600 text-white p-4 m-2 rounded-lg dark:bg-gradient-to-r dark:from-cyan-700 dark:to-teal-900 dark:text-white"
+          className="bg-gradient-to-r from-cyan-600 to-teal-600 text-white p-4 m-2 rounded-lg dark:bg-gradient-to-r dark:from-cyan-700 dark:to-teal-900 dark:text-white backdrop-blur-lg bg-opacity-40 border border-white border-opacity-20 shadow-lg"
         >
           <h2 className="font-semibold">{service}</h2>
         </div>

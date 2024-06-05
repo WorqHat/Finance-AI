@@ -15,9 +15,9 @@ const Sidemenu = () => {
       <ul className="px-4 gap-2 text-lg  py-4">
         <Link to="/dashboard">
           <li
-            className={`p-3 m-2 hover:shadow-sm hover:bg-gray-200 dark:hover:text-black rounded-xl cursor-pointer flex items-center gap-2 ${
+            className={`p-3 m-2 hover:shadow-sm hover:bg-gray-200 dark:hover:bg-gray-600  rounded-xl cursor-pointer flex items-center gap-2 ${
               location.pathname === "/dashboard"
-                ? "bg-gray-100 dark:text-black"
+                ? "bg-gray-100 dark:bg-gray-700 "
                 : ""
             }`}
           >
@@ -28,9 +28,9 @@ const Sidemenu = () => {
 
         <Link to="/adviser">
           <li
-            className={`p-3 m-2 hover:shadow-sm hover:bg-gray-100 dark:hover:text-black rounded-xl cursor-pointer flex items-center gap-2 ${
+            className={`p-3 m-2 hover:shadow-sm hover:bg-gray-200 dark:hover:bg-gray-600  rounded-xl cursor-pointer flex items-center gap-2 ${
               location.pathname === "/adviser"
-                ? "bg-gray-200 dark:text-black"
+                ? "bg-gray-100 dark:bg-gray-700"
                 : ""
             }`}
           >
