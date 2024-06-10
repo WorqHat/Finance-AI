@@ -135,7 +135,7 @@ export function ChatBotDial({ latestNews, isLoading }) {
                 <div className="animate-pulse"> Loading Latest news... </div>
               </div>
             ) : (
-              <ul className=" text-semibold rounded-xl text-white bg-gray-800 bg-opacity-85 ">
+              <ul className=" text-semibold rounded-xl dark:text-white bg-gray-300 dark:bg-gray-800 bg-opacity-85 ">
                 {latestNews ? (
                   latestNews.map((news, index) => (
                     <li className="p-2 m-2 " key={index}>
@@ -163,13 +163,13 @@ export function ChatBotDial({ latestNews, isLoading }) {
             {userMessages.map((msg, index) => (
               <div key={index} className="m-2 p-2 rounded-md">
                 <div className="flex justify-end">
-                  <div className="bg-gray-800 text-white rounded-2xl my-4 mx-1 py-2 px-4 text-right">
+                  <div className="dark:bg-gray-500  dark:text-white bg-gray-200 rounded-2xl my-4 mx-1 py-2 px-4 text-right">
                     {msg}
                   </div>
                 </div>
 
                 {userResponses[index] ? (
-                  <div className="bg-gray-100 rounded-2xl my-4 mx-1 w-2/3 p-2 text-left">
+                  <div className=" dark:bg-gray-600 bg-gray-100 rounded-2xl my-4 mx-1 w-2/3 p-2 text-left dark:text-white">
                     {userResponses[index]}
                   </div>
                 ) : (
