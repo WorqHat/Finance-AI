@@ -163,7 +163,7 @@ export function ChatBotDial({ latestNews, isLoading }) {
             {userMessages.map((msg, index) => (
               <div key={index} className="m-2 p-2 rounded-md">
                 <div className="flex justify-end">
-                  <div className="dark:bg-gray-500  dark:text-white bg-gray-200 rounded-2xl my-4 mx-1 py-2 px-4 text-right">
+                  <div className="dark:bg-gray-800  dark:text-white bg-gray-200 rounded-2xl my-4 mx-1 py-2 px-4 text-right">
                     {msg}
                   </div>
                 </div>

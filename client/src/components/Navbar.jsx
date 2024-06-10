@@ -12,13 +12,14 @@ const Navbar = () => {
 
   const handleLogoutClick = async () => {
     try {
-      const response = await axios.post(
-        "http://localhost:8000/api/v1/users/logout",
-        { withCredentials: true }
-      );
-      console.log(response);
+      // const response = await axios.post(
+      //   "http://localhost:8000/api/v1/users/logout",
+      //   { withCredentials: true }
+      // );
       Navigate("/");
       dispatch(logout());
+      // Cookies.set("accessToken", "");
+      // console.log(response);
     } catch (error) {
       setError("error while logging out", error.message);
       setTimeout(() => {
@@ -31,7 +32,7 @@ const Navbar = () => {
     <div class="  mx-4 my-2 z-50 ">
       <div class="flex items-center justify-between px-4 py-4 sm:px-6  border-b-2">
         <div class="inline-flex items-center space-x-2 ">
-          <Link to={"/"}>
+          <Link to={"/dashboard"}>
             <span class="font-bold text-2xl  dark:text-white">FinWise</span>
           </Link>
         </div>

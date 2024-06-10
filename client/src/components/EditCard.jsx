@@ -102,13 +102,13 @@ export function EditCard({
                   Amount
                 </label>
                 <input
-                  value={updatedAmount || amount}
+                  value={updatedAmount}
                   onChange={(e) => {
                     setUpdatedAmount(e.target.value);
                   }}
                   type="number"
                   id="Amount"
-                  placeholder="00"
+                  placeholder={amount}
                   className="border-b-2"
                 />
               </div>
@@ -119,13 +119,13 @@ export function EditCard({
                   Category
                 </label>
                 <input
-                  value={updatedCategory || category}
+                  value={updatedCategory}
                   onChange={(e) => {
                     setUpdatedCategory(e.target.value);
                   }}
                   type="text"
                   id="Category"
-                  placeholder="Food, grocery, medical..."
+                  placeholder={category}
                   className="border-b-2 "
                 />
               </div>
@@ -135,13 +135,13 @@ export function EditCard({
                   Description
                 </label>
                 <input
-                  value={updatedDescription || description}
+                  value={updatedDescription}
                   onChange={(e) => {
                     setUpdatedDescription(e.target.value);
                   }}
                   type="text"
                   id="Description"
-                  placeholder="dosa with friends"
+                  placeholder={description || "No description"}
                   className="border-b-2 align-middle"
                 />
               </div>

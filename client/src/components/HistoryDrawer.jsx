@@ -77,7 +77,7 @@ const HistoryDrawer = () => {
           <Modal.Header>Previous Advices</Modal.Header>
           <Modal.Body>
             <div className="container mx-auto py-8 ">
-              <div className="bg-gray-100 rounded-lg p-4 dark:bg-gray-500 dark:text-white ">
+              <div className="bg-gray-100 rounded-lg p-4 dark:bg-gray-600 dark:text-white ">
                 <h2 className="text-2xl font-semibold mb-4">
                   Overall Analysis:
                 </h2>
@@ -101,7 +101,7 @@ const HistoryDrawer = () => {
                       (item, index) => (
                         <li
                           key={index}
-                          className="mb-2 p-3 bg-gray-100 rounded-lg dark:bg-gray-500 dark:text-white "
+                          className="mb-2 p-3 bg-gray-100 rounded-lg dark:bg-gray-600 dark:text-white "
                         >
                           <strong>{item.Plan}:</strong> {item.Description}
                         </li>
@@ -117,14 +117,14 @@ const HistoryDrawer = () => {
                 </h3>
 
                 <div className="flex flex-col space-y-4 ">
-                  <div className="bg-gray-100 p-4 rounded-lg dark:bg-gray-500 dark:text-white ">
+                  <div className="bg-gray-100 p-4 rounded-lg dark:bg-gray-600 dark:text-white ">
                     <h4 className="text-lg font-semibold mb-2">
                       {selectedHistoryItem.SavingsTips?.TipOne.Title}
                     </h4>
                     <p>{selectedHistoryItem.SavingsTips?.TipOne.Description}</p>
                   </div>
 
-                  <div className="bg-gray-100 p-4 rounded-lg dark:bg-gray-500 dark:text-white">
+                  <div className="bg-gray-100 p-4 rounded-lg dark:bg-gray-600 dark:text-white">
                     <h4 className="text-lg font-semibold mb-2">
                       {selectedHistoryItem.SavingsTips?.TipTwo.Title}
                     </h4>
