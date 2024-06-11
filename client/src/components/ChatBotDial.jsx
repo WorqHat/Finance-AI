@@ -91,10 +91,7 @@ export function ChatBotDial({ latestNews, isLoading }) {
       ]);
     } catch (error) {
       console.log("error while chatting", error);
-      setUserResponses((prevResponses) => [
-        ...prevResponses,
-        "Oops!! Try again after sometiem...",
-      ]);
+      setUserResponses((prevResponses) => [...prevResponses, "Try using v2"]);
     } finally {
       setIsFetching(false);
     }

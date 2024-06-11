@@ -11,6 +11,3 @@ const ChatBot = () => {
 };
 
 export default ChatBot;
-
-// {https://www.youtube.com/watch?v=WsYABsWMFqc
-// }

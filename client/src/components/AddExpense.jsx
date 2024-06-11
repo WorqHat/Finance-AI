@@ -13,7 +13,7 @@ const AddExpense = () => {
   const dispatch = useDispatch();
   const [isExpense, setIsExpense] = useState(true);
   const [date, setDate] = useState(getTodayDateString());
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState();
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
   const [error, setError] = useState("");
@@ -84,7 +84,7 @@ const AddExpense = () => {
         console.log("Transaction creation failed");
       }
 
-      fetchTransactionsFromServer();
+      await fetchTransactionsFromServer();
       setError("");
     } catch (error) {
       setError("error creating transaction", error);
@@ -186,7 +186,12 @@ const AddExpense = () => {
       </div>
 
       <button
-        onClick={createTransaction}
+        onClick={async () => {
+          await createTransaction();
+          setAmount("");
+          setCategory("");
+          setDescription("");
+        }}
         className=" border border-blue-500 px-6 py-2 rounded-md  font-semibold dark:text-white dark:hover:bg-blue-800 "
       >
         Save
