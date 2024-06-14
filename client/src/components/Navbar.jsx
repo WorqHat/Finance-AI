@@ -1,30 +1,35 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { SideMenuDrawer } from "./SideMenuDrawer";
 import ToggleTheme from "./ToggleTheme";
+import { logout } from "../utils/authSlice";
 
 const Navbar = () => {
   const isSignedIn = useSelector((store) => store.auth.status);
   const dispatch = useDispatch();
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleLogoutClick = async () => {
     try {
-      // const response = await axios.post(
-      //   "http://localhost:8000/api/v1/users/logout",
-      //   { withCredentials: true }
-      // );
-      Navigate("/");
-      dispatch(logout());
-      // Cookies.set("accessToken", "");
-      // console.log(response);
+      const response = await axios.post(
+        "http://localhost:8000/api/v1/users/logout",
+        {},
+        { withCredentials: true }
+      );
+      if (response.data.success) {
+        console.log("response", response);
+        dispatch(logout());
+        console.log(response);
+        navigate("/");
+      }
     } catch (error) {
-      setError("error while logging out", error.message);
+      setError(`Error while logging out: ${error.message}`);
       setTimeout(() => {
         setError("");
-      }, 2000);
+      }, 5000);
     }
   };
 

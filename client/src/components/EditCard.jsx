@@ -97,8 +97,8 @@ export function EditCard({
         <Modal.Body className="flex justify-center items-center ">
           <div className="border-l-2 dark:border-none p-4 mb-4 shadow-md  w-2/3 flex flex-col justify-center items-center  dark:bg-gray-800 ">
             <div className="gap-6 flex flex-col py-6">
-              <div className="flex justify-center items-center ">
-                <label htmlFor="Amount" className="pr-4 dark:text-white">
+              <div className="flex justify-center items-center dark:text-white ">
+                <label htmlFor="Amount" className="pr-4 ">
                   Amount
                 </label>
                 <input
@@ -109,7 +109,7 @@ export function EditCard({
                   type="number"
                   id="Amount"
                   placeholder={amount}
-                  className="border-b-2"
+                  className="border-b-2 dark:bg-gray-800"
                 />
               </div>
 
@@ -126,7 +126,7 @@ export function EditCard({
                   type="text"
                   id="Category"
                   placeholder={category}
-                  className="border-b-2 "
+                  className="border-b-2 dark:bg-gray-800 dark:text-white "
                 />
               </div>
 
@@ -142,7 +142,7 @@ export function EditCard({
                   type="text"
                   id="Description"
                   placeholder={description || "No description"}
-                  className="border-b-2 align-middle"
+                  className="border-b-2 align-middle dark:bg-gray-800"
                 />
               </div>
             </div>
